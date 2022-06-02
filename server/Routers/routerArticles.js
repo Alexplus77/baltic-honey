@@ -12,5 +12,5 @@ router.get("/getBlockMenu", getBlockMenu.getBlockMenu);
 router.post("/addArticle", articlesPostControllers.articlesPostControllers);
 router.post("/addCategory", addCategoryController.addCategory);
 router.get("/getCategories", getCategoriesController.getCategories);
-router.post("/getArticles", getArticles.getArticles);
+router.get("/getArticles", getArticles.getArticles);
 module.exports = router;

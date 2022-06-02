@@ -1,15 +1,19 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import s from "./AsideBlockMenu.module.css";
+import { useSelector } from "react-redux";
 
 export const AsideBlockMenu = ({ item }) => {
+  const { articles } = useSelector((state) => state.contentReducer);
+
+  const articlesList = articles?.filter((el) => el.category?._id === item?._id);
   return (
     <div className={s.container}>
-      <h3>{item.name}</h3>
+      <h3>{item.title}</h3>
       <ul>
-        {item.articles?.map((el) => (
+        {articlesList?.map((el) => (
           <li key={el._id}>
-            <Link to={`/${item.name}/${el.title}`}>{el.title}</Link>
+            <Link to={`/${item.title}/${el.title}`}>{el.title}</Link>
           </li>
         ))}
       </ul>

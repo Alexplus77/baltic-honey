@@ -15,7 +15,6 @@ export const EditorText = () => {
   const log = () => {
     if (editorRef.current) {
       dispatch(addContent(editorRef.current.getContent()));
-      editorRef.current = null;
     }
   };
 

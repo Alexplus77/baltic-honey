@@ -7,22 +7,23 @@ import { fetchGetCategoriesMenu } from "../../redux/middleware/articlesPost";
 export const NavBar = () => {
   const dispatch = useDispatch();
   const activeClass = ({ isActive }) => (isActive ? s.active : s.navbar);
-  const { categories, categoriesMenu, blockMenu } = useSelector(
-    (state) => state.contentReducer
-  );
-  const menuNavbar = categories.filter(
-    (category) => category.blockMenu.title === "navbar"
-  );
+  const { categories } = useSelector((state) => state.contentReducer);
 
-  console.log(categories, menuNavbar);
+  const menuNavbar = categories?.filter(
+    (category) => category.blockMenu?.title === "navbar"
+  );
 
   return (
     <nav className={s.navBarContainer}>
       {menuNavbar.map((link) => (
         <NavLink
           className={activeClass}
-          key={link.title}
-          to={link.title === "Main" ? "/" : `/${link.title}/${link.title}`}
+          key={link._id}
+          to={
+            link.title === "Main"
+              ? "/Main/Main"
+              : `/${link.title}/${link.title}`
+          }
         >
           {link.title}
         </NavLink>

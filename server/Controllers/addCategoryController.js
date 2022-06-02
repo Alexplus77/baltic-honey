@@ -5,6 +5,8 @@ exports.addCategory = (req, res) => {
     new Categories({
       blockMenu: req.body.menuBlock,
       title: req.body.category,
-    }).save();
+    }).save((error, result) => {
+      res.send(result);
+    });
   } catch (e) {}
 };

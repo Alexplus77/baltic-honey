@@ -16,12 +16,15 @@ export const FormAddArticle = () => {
   );
 
   const onFinish = (values) => {
-    console.log("values", { ...values, content: content });
-    dispatch(
-      fetchPostData({
-        data: { ...values, content: content },
-      })
-    );
+    //console.log("values", { ...values, content: content });
+
+    content.trim()
+      ? dispatch(
+          fetchPostData({
+            data: { ...values, content: content },
+          })
+        )
+      : console.log("Ошибка: Добавьте содержимое статьи!!!");
 
     dispatch(addContent(""));
   };
@@ -35,6 +38,12 @@ export const FormAddArticle = () => {
         name={"blockMenu"}
         className={s.select}
         label={"Выберите блок меню"}
+        rules={[
+          {
+            required: true,
+            message: "Выберите блок меню!",
+          },
+        ]}
       >
         <Select onChange={handleSelectBlock} placeholder={"Выберите блок меню"}>
           {blockMenu?.map((block) => (
@@ -46,6 +55,12 @@ export const FormAddArticle = () => {
         name={"category"}
         className={s.select}
         label={"Выберите раздел"}
+        rules={[
+          {
+            required: true,
+            message: "Выберите раздел!",
+          },
+        ]}
       >
         <Select placeholder={"Выберите категорию"}>
           {categoriesMenu?.map((category) => (
@@ -53,7 +68,17 @@ export const FormAddArticle = () => {
           ))}
         </Select>
       </Form.Item>
-      <Form.Item name={"title"} className={s.input} label={"Название статьи"}>
+      <Form.Item
+        rules={[
+          {
+            required: true,
+            message: "Укажите название статьи!",
+          },
+        ]}
+        name={"title"}
+        className={s.input}
+        label={"Название статьи"}
+      >
         <Input />
       </Form.Item>
       <EditorText />

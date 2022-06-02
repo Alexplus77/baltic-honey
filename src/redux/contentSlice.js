@@ -31,8 +31,8 @@ const contentSlice = createSlice({
       state.toggleEditMod = !state.toggleEditMod;
     },
     [fetchAddCategory.fulfilled]: (state, action) => {
-      state.server = action.payload;
       state.toggleEditMod = !state.toggleEditMod;
+      state.server = action.payload;
     },
     [fetchGetCategories.fulfilled]: (state, action) => {
       state.categories = action.payload;
