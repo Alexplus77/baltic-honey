@@ -19,7 +19,7 @@ export const AdministratorPage = () => {
           <Button type={"primary"}>Добавить раздел в боковое меню</Button>
           <Button type={"primary"}>Добавить статью</Button>
         </div>
-        {/*<ArticlesList />*/}
+        <ArticlesList />
         <FormAddCategory />
         <FormAddArticle />
       </div>

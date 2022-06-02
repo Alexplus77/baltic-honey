@@ -6,7 +6,7 @@ exports.articlesPostControllers = (req, res) => {
       category: req.body.category,
       title: req.body.title,
       content: req.body.content,
-    }).save();
+    }).save(() => res.send("ok"));
   } catch (e) {
     console.log(e);
   }

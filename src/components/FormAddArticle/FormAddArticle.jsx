@@ -6,12 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchGetCategoriesMenu,
   fetchPostData,
+  fetchUpdateArticle,
 } from "../../redux/middleware/articlesPost";
 import { addContent } from "../../redux/contentSlice";
 
 export const FormAddArticle = () => {
   const dispatch = useDispatch();
-  const { content, categories, blockMenu, categoriesMenu } = useSelector(
+  const { content, editArticle, blockMenu, categoriesMenu } = useSelector(
     (state) => state.contentReducer
   );
 
@@ -19,11 +20,15 @@ export const FormAddArticle = () => {
     //console.log("values", { ...values, content: content });
 
     content.trim()
-      ? dispatch(
-          fetchPostData({
-            data: { ...values, content: content },
-          })
-        )
+      ? editArticle
+        ? dispatch(
+            fetchUpdateArticle({ id: editArticle?.id, content: content })
+          )
+        : dispatch(
+            fetchPostData({
+              data: { ...values, content: content },
+            })
+          )
       : console.log("Ошибка: Добавьте содержимое статьи!!!");
 
     dispatch(addContent(""));
@@ -35,6 +40,7 @@ export const FormAddArticle = () => {
   return (
     <Form onFinish={onFinish} name={"addArticleForm"} className={s.form}>
       <Form.Item
+        hidden={editArticle}
         name={"blockMenu"}
         className={s.select}
         label={"Выберите блок меню"}
@@ -52,6 +58,7 @@ export const FormAddArticle = () => {
         </Select>
       </Form.Item>
       <Form.Item
+        hidden={editArticle}
         name={"category"}
         className={s.select}
         label={"Выберите раздел"}
@@ -79,7 +86,7 @@ export const FormAddArticle = () => {
         className={s.input}
         label={"Название статьи"}
       >
-        <Input />
+        <Input value={editArticle && editArticle.title} />
       </Form.Item>
       <EditorText />
       <Form.Item className={s.button}>

@@ -6,6 +6,8 @@ import {
   fetchGetArticles,
   fetchGetBlockMenu,
   fetchGetCategoriesMenu,
+  fetchRemoveArticle,
+  fetchUpdateArticle,
 } from "./middleware/articlesPost";
 
 const contentSlice = createSlice({
@@ -18,8 +20,16 @@ const contentSlice = createSlice({
     toggleEditMod: false,
     articles: [],
     categoriesMenu: [],
+    editArticle: false,
   },
   extraReducers: {
+    [fetchUpdateArticle.fulfilled]: (state) => {
+      state.toggleEditMod = !state.toggleEditMod;
+      state.editArticle = null;
+    },
+    [fetchRemoveArticle.fulfilled]: (state) => {
+      state.toggleEditMod = !state.toggleEditMod;
+    },
     [fetchGetCategoriesMenu.fulfilled]: (state, action) => {
       state.categoriesMenu = action.payload;
     },
@@ -45,7 +55,14 @@ const contentSlice = createSlice({
     addContent: (state, action) => {
       state.content = action.payload;
     },
+    onEditArticle: (state, action) => {
+      state.editArticle = {
+        id: action.payload.id,
+        title: action.payload.title,
+      };
+      state.content = action.payload.content;
+    },
   },
 });
-export const { addContent } = contentSlice.actions;
+export const { addContent, onEditArticle } = contentSlice.actions;
 export default contentSlice.reducer;

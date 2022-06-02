@@ -13,10 +13,9 @@ export const MainPage = () => {
   const article = articles?.find(
     (el) => el.category?.title === params.category && el.title === params.name
   );
-  // useEffect(() => {
-  //   console.log(!params.category);
-  //   !params.category && navigate("/Main/Main");
-  // }, []);
+  useEffect(() => {
+    !params.category && navigate("/Main/Main");
+  }, []);
 
   {
     /*<div dangerouslySetInnerHTML={{ __html: content }} />*/

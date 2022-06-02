@@ -1,36 +1,70 @@
 import React from "react";
 import { Row, Table } from "antd";
-import { useSelector } from "react-redux";
-
+import { CloseOutlined, EditOutlined } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { onEditArticle } from "redux/contentSlice";
+import {
+  fetchRemoveArticle,
+  fetchUpdateArticle,
+} from "redux/middleware/articlesPost";
+import s from "./ArticlesList.module.css";
 export const ArticlesList = () => {
-  const { categories } = useSelector((state) => state.contentReducer);
-
+  const dispatch = useDispatch();
+  const { categories, articles, content } = useSelector(
+    (state) => state.contentReducer
+  );
+  const handleRemoveArticle = (id) => {
+    dispatch(fetchRemoveArticle(id));
+  };
+  const handleEditOnArticle = (content) => {
+    dispatch(onEditArticle(content));
+  };
+  //console.log(articles);
   const columns = [
     {
-      title: "BlockMenuName",
-      key: "BlockMenuName",
-      render: (doc) => <div key={doc._id}>{doc.blockMenuName}</div>,
+      title: "Articles",
+      key: "Articles",
+      render: (doc) => <div key={doc._id}>{doc.title}</div>,
     },
     {
       title: "Categories",
       key: "Categories",
-      render: (doc) =>
-        doc.category.map((el) => <div key={el._id}>{el.name}</div>),
+      render: ({ category }) => <div key={category._id}>{category.title}</div>,
     },
     {
-      title: "Articles",
-      key: "Articles",
-      render: ({ category }) =>
-        category.map(({ articles }) =>
-          articles.map((el) => <div key={el._id}>{el.title}</div>)
-        ),
+      title: "BlockMenu",
+      key: "BlockMenu",
+      render: ({ blockMenu }) => (
+        <div key={blockMenu._id}>{blockMenu.title}</div>
+      ),
+    },
+    {
+      title: "Actions",
+      key: "Actions",
+      render: (doc) => (
+        <div className={s.actionsBtns}>
+          <CloseOutlined
+            onClick={() => handleRemoveArticle(doc._id)}
+            style={{ color: "red" }}
+          />
+          <EditOutlined
+            onClick={() =>
+              handleEditOnArticle({
+                id: doc._id,
+                title: doc.title,
+                content: doc.content,
+              })
+            }
+          />
+        </div>
+      ),
     },
   ];
   return (
     <Table
       columns={columns}
       rowKey={(record) => record._id}
-      dataSource={categories}
+      dataSource={articles}
     />
   );
 };
