@@ -20,6 +20,7 @@ export const MainPage = () => {
 
   {
     /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
+    /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
   }
   return (
     <div
