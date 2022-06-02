@@ -5,7 +5,7 @@ export const fetchPostData = createAsyncThunk(
   ({ category, data }) =>
     axios
       .post(`http://localhost:8080/addArticle`, data)
-      .then(({ data }) => console.log(data))
+      .then(({ data }) => data)
 );
 
 export const fetchAddCategory = createAsyncThunk(
@@ -33,4 +33,15 @@ export const fetchGetCategoriesMenu = createAsyncThunk(
     axios
       .get(`http://localhost:8080/getCategoriesMenu/${id}`)
       .then(({ data }) => data)
+);
+export const fetchRemoveArticle = createAsyncThunk(
+  "contentSlice/removeArticle",
+  (id) =>
+    axios
+      .post("http://localhost:8080/removeArticle", { id })
+      .then(({ data }) => data)
+);
+export const fetchUpdateArticle = createAsyncThunk(
+  "contentSlice/updateArticle",
+  (data) => axios.post("http://localhost:8080/removeArticle", data)
 );

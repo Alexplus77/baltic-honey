@@ -1,0 +1,10 @@
+.actionsBtns{
+    display: grid;
+    grid-auto-flow: column;
+    width: 100px;
+    gap: 10px;
+    font-size: 20px;
+}
+.actionsBtns>*{
+    cursor: pointer;
+}

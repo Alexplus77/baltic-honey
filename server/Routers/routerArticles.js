@@ -6,11 +6,15 @@ const getCategoriesController = require("../Controllers/getCategoriesController"
 const getArticles = require("../Controllers/getArticles");
 const getBlockMenu = require("../Controllers/getBlockMenuControllers");
 const getCategoriesMenu = require("../Controllers/getCategoriesMenu");
+const removeArticle = require("../Controllers/removeArticleController");
+const udateArticle = require("../Controllers/updateArticleController");
 
+router.post("/updateArticle", udateArticle.updateArticle);
 router.get("/getCategoriesMenu/:id", getCategoriesMenu.getCategoriesMenu);
 router.get("/getBlockMenu", getBlockMenu.getBlockMenu);
 router.post("/addArticle", articlesPostControllers.articlesPostControllers);
 router.post("/addCategory", addCategoryController.addCategory);
+router.post("/removeArticle", removeArticle.removeArticle);
 router.get("/getCategories", getCategoriesController.getCategories);
 router.get("/getArticles", getArticles.getArticles);
 module.exports = router;
