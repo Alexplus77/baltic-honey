@@ -3,17 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import s from "./AdministratorPage.module.css";
 import { FormAddCategory } from "components/FormAddCategory";
 import { FormAddArticle } from "components/FormAddArticle";
-import { navbarTitle, asideList } from "DataBase/navbarTitle";
 import { Button, Cascader } from "antd";
-
-const list = [
-  { value: "aside", label: "aside", children: asideList },
-  { value: "navbar", label: "navbar", children: navbarTitle },
-];
+import { ArticlesList } from "components/ArticlesList";
 
 export const AdministratorPage = () => {
   const onChange = (value) => {};
-  const { content } = useSelector((state) => state.contentReducer);
+  const { categories } = useSelector((state) => state.contentReducer);
 
   return (
     <main>
@@ -24,6 +19,7 @@ export const AdministratorPage = () => {
           <Button type={"primary"}>Добавить раздел в боковое меню</Button>
           <Button type={"primary"}>Добавить статью</Button>
         </div>
+        {/*<ArticlesList />*/}
         <FormAddCategory />
         <FormAddArticle />
       </div>

@@ -1,16 +1,24 @@
 import { Routers } from "./Routers";
-import { fetchGetCategories } from "./redux/middleware/articlesPost";
+import {
+  fetchGetCategories,
+  fetchGetBlockMenu,
+  fetchGetCategoriesMenu,
+  fetchGetArticles,
+} from "./redux/middleware/articlesPost";
 import "./App.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state.contentReducer);
+  const { toggleEditMod } = useSelector((state) => state.contentReducer);
+
   useEffect(() => {
     dispatch(fetchGetCategories());
-  }, []);
-  console.log(categories);
+    dispatch(fetchGetBlockMenu());
+    dispatch(fetchGetArticles());
+  }, [toggleEditMod]);
+
   return (
     <div className="App">
       <Routers />

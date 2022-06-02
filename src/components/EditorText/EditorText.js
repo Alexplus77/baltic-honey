@@ -11,11 +11,10 @@ export const EditorText = () => {
   const dispatch = useDispatch();
   const { content } = useSelector((state) => state.contentReducer);
   const editorRef = useRef(null);
-  useEffect(() => {}, [content]);
+
   const log = () => {
     if (editorRef.current) {
       dispatch(addContent(editorRef.current.getContent()));
-      editorRef.current = null;
     }
   };
 

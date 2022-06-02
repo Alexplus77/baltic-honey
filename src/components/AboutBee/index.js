@@ -1,1 +1,0 @@
-export { AboutBee } from "./AboutBee";

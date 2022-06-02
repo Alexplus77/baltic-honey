@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./MainPage.module.css";
+import { useNavigate, useParams, useLocation } from "react-router";
+import { fetchGetArticles } from "../../redux/middleware/articlesPost";
+import { useSelector, useDispatch } from "react-redux";
+
 export const MainPage = () => {
+  const { categories, articles } = useSelector((state) => state.contentReducer);
+  const params = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const article = articles?.find(
+    (el) => el.category?.title === params.category && el.title === params.name
+  );
+  // useEffect(() => {
+  //   console.log(!params.category);
+  //   !params.category && navigate("/Main/Main");
+  // }, []);
+
+  {
+    /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
+    /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
+  }
   return (
-    <div className={s.container}>
-      <h1>Балтийский мёд</h1>
-      <p>
-        Приветствуем вас на сайте "Балтийский мёд" где сможете узнать много
-        нового о продуктах пчеловодства и жизни пчел. А также приобрести мёд и
-        другие продукты пчеловодства высокого качества по ценам ниже рыночных,
-        так как все продается без посредников. Сделать заказ на мёд, забрус
-        сможете перейдя на вкладку "Контакты". Наша пасека находится в
-        Зеленоградском районе Калининградской области, на побережье Балтийского
-        моря, где отсутствуют вредные производства и хорошая экология. Все
-        продукты пчеловодства производятся строго в соответствии с требованиями
-        европейского качества. Все оборудование из пищевой нержавеющей стали,
-        что исключает окисление мёда и образование вредных веществ. Содержание
-        пчелиных семей ведется в экологичных деревянных ульях, антибиотики и
-        другие лекарственные средства не используются. Этим достигается
-        сохранение полезных свойств и высокое качество мёда.
-      </p>
-    </div>
+    <div
+      className={s.container}
+      dangerouslySetInnerHTML={{ __html: article?.content }}
+    ></div>
   );
 };

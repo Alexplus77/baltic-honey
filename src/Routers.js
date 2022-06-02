@@ -10,7 +10,7 @@ export const Routers = () => {
       <Route element={<Layout />}>
         <Route index element={<MainPage />} />
         <Route path={"/administrator"} element={<AdministratorPage />} />
-        <Route path={"/:category:name"} element={<MainPage />} />
+        <Route path={"/:category/:name"} element={<MainPage />} />
       </Route>
     </Routes>
   );
