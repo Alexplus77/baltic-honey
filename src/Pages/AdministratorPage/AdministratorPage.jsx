@@ -5,6 +5,7 @@ import { FormAddCategory } from "components/FormAddCategory";
 import { FormAddArticle } from "components/FormAddArticle";
 import { Button } from "antd";
 import { ArticlesList } from "components/ArticlesList";
+import { CategoriesList } from "components/CategoriesList";
 import { handleAddCategory, handleAddArticle } from "redux/contentSlice";
 
 export const AdministratorPage = () => {
@@ -28,6 +29,7 @@ export const AdministratorPage = () => {
           </Button>
         </div>
         {!isAddArticle && !isAddCategory ? <ArticlesList /> : null}
+        {!isAddArticle && !isAddCategory ? <CategoriesList /> : null}
         {isAddCategory && <FormAddCategory />}
         {isAddArticle && <FormAddArticle />}
       </div>

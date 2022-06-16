@@ -21,6 +21,7 @@ const contentSlice = createSlice({
     articles: [],
     categoriesMenu: [],
     editArticle: false,
+    editCategory: false,
     isAddCategory: false,
     isAddArticle: false,
   },
@@ -76,11 +77,19 @@ const contentSlice = createSlice({
       };
       state.content = action.payload.content;
     },
+    onEditCategory: (state, action) => {
+      state.isAddCategory = true;
+      state.editArticle = {
+        id: action.payload.id,
+        title: action.payload.title,
+      };
+    },
   },
 });
 export const {
   addContent,
   onEditArticle,
+  onEditCategory,
   handleAddCategory,
   handleAddArticle,
 } = contentSlice.actions;
