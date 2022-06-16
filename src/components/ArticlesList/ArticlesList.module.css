@@ -1,3 +1,4 @@
+
 .actionsBtns{
     display: grid;
     grid-auto-flow: column;
@@ -7,4 +8,7 @@
 }
 .actionsBtns>*{
     cursor: pointer;
+}
+.titleTable{
+   text-align: center;
 }

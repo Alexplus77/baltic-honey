@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Form, Input, Select, Button } from "antd";
 import s from "./FormAddArticle.module.css";
 import { EditorText } from "components/EditorText";
@@ -7,22 +7,26 @@ import {
   fetchGetCategoriesMenu,
   fetchPostData,
   fetchUpdateArticle,
-} from "../../redux/middleware/articlesPost";
-import { addContent } from "../../redux/contentSlice";
+} from "redux/middleware/articlesPost";
+import { addContent } from "redux/contentSlice";
 
 export const FormAddArticle = () => {
   const dispatch = useDispatch();
   const { content, editArticle, blockMenu, categoriesMenu } = useSelector(
     (state) => state.contentReducer
   );
+  const [form] = Form.useForm();
 
   const onFinish = (values) => {
     //console.log("values", { ...values, content: content });
-
     content.trim()
-      ? editArticle
+      ? editArticle?.title
         ? dispatch(
-            fetchUpdateArticle({ id: editArticle?.id, content: content })
+            fetchUpdateArticle({
+              id: editArticle?.id,
+              title: values.title,
+              content: content,
+            })
           )
         : dispatch(
             fetchPostData({
@@ -30,26 +34,33 @@ export const FormAddArticle = () => {
             })
           )
       : console.log("Ошибка: Добавьте содержимое статьи!!!");
-
+    form.resetFields();
     dispatch(addContent(""));
   };
   const handleSelectBlock = (value) => {
     dispatch(fetchGetCategoriesMenu(value));
   };
 
+  const inputTitleArticle = useRef();
+  useEffect(() => {
+    editArticle?.title &&
+      (inputTitleArticle.current.input.value = editArticle?.title);
+  }, [editArticle?.title]);
+
   return (
     <Form onFinish={onFinish} name={"addArticleForm"} className={s.form}>
       <Form.Item
-        hidden={editArticle}
+        hidden={editArticle?.title}
         name={"blockMenu"}
         className={s.select}
         label={"Выберите блок меню"}
         rules={[
           {
-            required: true,
+            required: !editArticle?.title && true,
             message: "Выберите блок меню!",
           },
         ]}
+        initialValue={{ title: editArticle?.title }}
       >
         <Select onChange={handleSelectBlock} placeholder={"Выберите блок меню"}>
           {blockMenu?.map((block) => (
@@ -64,7 +75,7 @@ export const FormAddArticle = () => {
         label={"Выберите раздел"}
         rules={[
           {
-            required: true,
+            required: !editArticle?.title && true,
             message: "Выберите раздел!",
           },
         ]}
@@ -86,7 +97,7 @@ export const FormAddArticle = () => {
         className={s.input}
         label={"Название статьи"}
       >
-        <Input value={editArticle && editArticle.title} />
+        <Input ref={inputTitleArticle} />
       </Form.Item>
       <EditorText />
       <Form.Item className={s.button}>

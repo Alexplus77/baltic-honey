@@ -7,9 +7,9 @@ const getArticles = require("../Controllers/getArticles");
 const getBlockMenu = require("../Controllers/getBlockMenuControllers");
 const getCategoriesMenu = require("../Controllers/getCategoriesMenu");
 const removeArticle = require("../Controllers/removeArticleController");
-const udateArticle = require("../Controllers/updateArticleController");
+const updateArticle = require("../Controllers/updateArticleController");
 
-router.post("/updateArticle", udateArticle.updateArticle);
+router.post("/updateArticle", updateArticle.updateArticle);
 router.get("/getCategoriesMenu/:id", getCategoriesMenu.getCategoriesMenu);
 router.get("/getBlockMenu", getBlockMenu.getBlockMenu);
 router.post("/addArticle", articlesPostControllers.articlesPostControllers);

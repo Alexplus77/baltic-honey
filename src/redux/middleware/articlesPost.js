@@ -43,5 +43,9 @@ export const fetchRemoveArticle = createAsyncThunk(
 );
 export const fetchUpdateArticle = createAsyncThunk(
   "contentSlice/updateArticle",
-  (data) => axios.post("http://localhost:8080/removeArticle", data)
+  (data) => {
+    axios
+      .post("http://localhost:8080/updateArticle", data)
+      .then(({ data }) => data);
+  }
 );
