@@ -10,6 +10,7 @@ h1{
 }
 .cascaderContainer{
     display: grid;
+    padding: 10px;
 }
 .cascaderNavbar{
     padding: 10px;

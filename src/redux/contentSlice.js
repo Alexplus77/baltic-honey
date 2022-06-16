@@ -21,11 +21,15 @@ const contentSlice = createSlice({
     articles: [],
     categoriesMenu: [],
     editArticle: false,
+    editCategory: false,
+    isAddCategory: false,
+    isAddArticle: false,
   },
   extraReducers: {
     [fetchUpdateArticle.fulfilled]: (state) => {
       state.toggleEditMod = !state.toggleEditMod;
       state.editArticle = null;
+      state.isAddArticle = false;
     },
     [fetchRemoveArticle.fulfilled]: (state) => {
       state.toggleEditMod = !state.toggleEditMod;
@@ -39,10 +43,12 @@ const contentSlice = createSlice({
     [fetchPostData.fulfilled]: (state, action) => {
       state.server = action.payload;
       state.toggleEditMod = !state.toggleEditMod;
+      state.isAddArticle = false;
     },
     [fetchAddCategory.fulfilled]: (state, action) => {
       state.toggleEditMod = !state.toggleEditMod;
       state.server = action.payload;
+      state.isAddCategory = false;
     },
     [fetchGetCategories.fulfilled]: (state, action) => {
       state.categories = action.payload;
@@ -52,17 +58,39 @@ const contentSlice = createSlice({
     },
   },
   reducers: {
+    handleAddCategory: (state) => {
+      state.isAddCategory = !state.isAddCategory;
+      state.isAddArticle = false;
+    },
+    handleAddArticle: (state) => {
+      state.isAddArticle = !state.isAddArticle;
+      state.isAddCategory = false;
+    },
     addContent: (state, action) => {
       state.content = action.payload;
     },
     onEditArticle: (state, action) => {
+      state.isAddArticle = true;
       state.editArticle = {
         id: action.payload.id,
         title: action.payload.title,
       };
       state.content = action.payload.content;
     },
+    onEditCategory: (state, action) => {
+      state.isAddCategory = true;
+      state.editArticle = {
+        id: action.payload.id,
+        title: action.payload.title,
+      };
+    },
   },
 });
-export const { addContent, onEditArticle } = contentSlice.actions;
+export const {
+  addContent,
+  onEditArticle,
+  onEditCategory,
+  handleAddCategory,
+  handleAddArticle,
+} = contentSlice.actions;
 export default contentSlice.reducer;

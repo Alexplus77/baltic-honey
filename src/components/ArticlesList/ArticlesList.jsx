@@ -1,12 +1,9 @@
 import React from "react";
-import { Row, Table } from "antd";
+import { Table } from "antd";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { onEditArticle } from "redux/contentSlice";
-import {
-  fetchRemoveArticle,
-  fetchUpdateArticle,
-} from "redux/middleware/articlesPost";
+import { fetchRemoveArticle } from "redux/middleware/articlesPost";
 import s from "./ArticlesList.module.css";
 export const ArticlesList = () => {
   const dispatch = useDispatch();
@@ -19,7 +16,7 @@ export const ArticlesList = () => {
   const handleEditOnArticle = (content) => {
     dispatch(onEditArticle(content));
   };
-  //console.log(articles);
+
   const columns = [
     {
       title: "Articles",
@@ -62,6 +59,7 @@ export const ArticlesList = () => {
   ];
   return (
     <Table
+      title={() => <h2 className={s.titleTable}>Список статей</h2>}
       columns={columns}
       rowKey={(record) => record._id}
       dataSource={articles}

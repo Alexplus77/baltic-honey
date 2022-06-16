@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Button } from "antd";
-import { fetchPostData } from "../../redux/middleware/articlesPost";
 import s from "./EditorText.module.css";
 import { addContent } from "redux/contentSlice";
 import { useSelector, useDispatch } from "react-redux";
