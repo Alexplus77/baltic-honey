@@ -4,15 +4,19 @@ import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./CategoriesList.module.css";
 import { onEditCategory } from "redux/contentSlice";
+import { fetchRemoveCategory } from "redux/middleware/articlesPost";
 
 export const CategoriesList = () => {
   const { categories, articles, content } = useSelector(
     (state) => state.contentReducer
   );
   const dispatch = useDispatch();
-  console.log(categories);
+  //console.log(categories);
   const handleEditOnCategory = (data) => {
     dispatch(onEditCategory(data));
+  };
+  const handleRemoveCategory = (idCategory) => {
+    dispatch(fetchRemoveCategory({ idCategory }));
   };
   const columns = [
     {
@@ -33,17 +37,16 @@ export const CategoriesList = () => {
       render: (doc) => (
         <div className={s.actionsBtns}>
           <CloseOutlined
-            //onClick={() => handleRemoveArticle(doc._id)}
+            onClick={() => handleRemoveCategory(doc._id)}
             style={{ color: "red" }}
           />
           <EditOutlined
-          // onClick={() =>
-          //     handleEditOnArticle({
-          //       id: doc._id,
-          //       title: doc.title,
-          //       content: doc.content,
-          //     })
-          // }
+            onClick={() =>
+              handleEditOnCategory({
+                id: doc._id,
+                title: doc.title,
+              })
+            }
           />
         </div>
       ),
