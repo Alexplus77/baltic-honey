@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchPostData,
   fetchAddCategory,
+  fetchUpdateCategory,
+  fetchRemoveCategory,
   fetchGetCategories,
   fetchGetArticles,
   fetchGetBlockMenu,
@@ -49,6 +51,14 @@ const contentSlice = createSlice({
       state.toggleEditMod = !state.toggleEditMod;
       state.server = action.payload;
       state.isAddCategory = false;
+    },
+    [fetchUpdateCategory.fulfilled]: (state) => {
+      state.toggleEditMod = !state.toggleEditMod;
+      state.editCategory = null;
+      state.isAddCategory = false;
+    },
+    [fetchRemoveCategory.fulfilled]: (state) => {
+      state.toggleEditMod = !state.toggleEditMod;
     },
     [fetchGetCategories.fulfilled]: (state, action) => {
       state.categories = action.payload;

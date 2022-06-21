@@ -8,7 +8,11 @@ const getBlockMenu = require("../Controllers/getBlockMenuControllers");
 const getCategoriesMenu = require("../Controllers/getCategoriesMenu");
 const removeArticle = require("../Controllers/removeArticleController");
 const updateArticle = require("../Controllers/updateArticleController");
+const removeCategory = require("../Controllers/removeCategoryController");
+const updateCategory = require("../Controllers/updateCategoryController");
 
+router.post("/updateCategory", updateCategory.updateCategory);
+router.post("/removeCategory", removeCategory.removeCategory);
 router.post("/updateArticle", updateArticle.updateArticle);
 router.get("/getCategoriesMenu/:id", getCategoriesMenu.getCategoriesMenu);
 router.get("/getBlockMenu", getBlockMenu.getBlockMenu);

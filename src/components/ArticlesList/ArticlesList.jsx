@@ -26,7 +26,9 @@ export const ArticlesList = () => {
     {
       title: "Categories",
       key: "Categories",
-      render: ({ category }) => <div key={category._id}>{category.title}</div>,
+      render: ({ category }) => (
+        <div key={category?._id}>{category?.title}</div>
+      ),
     },
     {
       title: "BlockMenu",
