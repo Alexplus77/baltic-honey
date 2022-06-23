@@ -65,6 +65,9 @@ export const ArticlesList = () => {
       columns={columns}
       rowKey={(record) => record._id}
       dataSource={articles}
+      pagination={{
+        pageSize: 6,
+      }}
     />
   );
 };

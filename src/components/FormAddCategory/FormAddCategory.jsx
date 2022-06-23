@@ -19,7 +19,7 @@ export const FormAddCategory = () => {
       ? dispatch(
           fetchUpdateCategory({
             id: editCategory?.id,
-            title: values.category,
+            ...values,
           })
         )
       : dispatch(fetchAddCategory(values));
@@ -62,7 +62,9 @@ export const FormAddCategory = () => {
       </Form.Item>
       <Form.Item className={s.button}>
         <Button style={{ width: "100%" }} type={"primary"} htmlType={"submit"}>
-          Сохранить категорию
+          {editCategory?.title
+            ? "Сохранить изменение категории"
+            : "Сохранить новую категорию"}
         </Button>
       </Form.Item>
     </Form>

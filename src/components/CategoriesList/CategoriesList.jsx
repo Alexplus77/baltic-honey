@@ -11,7 +11,7 @@ export const CategoriesList = () => {
     (state) => state.contentReducer
   );
   const dispatch = useDispatch();
-  //console.log(categories);
+
   const handleEditOnCategory = (data) => {
     dispatch(onEditCategory(data));
   };
@@ -45,6 +45,7 @@ export const CategoriesList = () => {
               handleEditOnCategory({
                 id: doc._id,
                 title: doc.title,
+                blockMenu: doc.blockMenu,
               })
             }
           />
@@ -58,6 +59,9 @@ export const CategoriesList = () => {
       columns={columns}
       rowKey={(record) => record._id}
       dataSource={categories}
+      pagination={{
+        pageSize: 6,
+      }}
     />
   );
 };
