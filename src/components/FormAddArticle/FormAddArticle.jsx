@@ -41,12 +41,6 @@ export const FormAddArticle = () => {
     dispatch(fetchGetCategoriesMenu(value));
   };
 
-  const inputTitleArticle = useRef();
-  useEffect(() => {
-    editArticle?.title &&
-      (inputTitleArticle.current.input.value = editArticle?.title);
-  }, [editArticle?.title]);
-
   return (
     <Form onFinish={onFinish} name={"addArticleForm"} className={s.form}>
       <Form.Item
@@ -96,8 +90,9 @@ export const FormAddArticle = () => {
         name={"title"}
         className={s.input}
         label={"Название статьи"}
+        initialValue={editArticle?.title}
       >
-        <Input ref={inputTitleArticle} />
+        <Input />
       </Form.Item>
       <EditorText />
       <Form.Item className={s.button}>

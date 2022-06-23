@@ -89,7 +89,7 @@ const contentSlice = createSlice({
     },
     onEditCategory: (state, action) => {
       state.isAddCategory = true;
-      state.editArticle = {
+      state.editCategory = {
         id: action.payload.id,
         title: action.payload.title,
       };

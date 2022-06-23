@@ -1,25 +1,38 @@
 import React from "react";
 import { Form, Select, Button, Input } from "antd";
 import s from "./FormAddCategory.module.css";
-import { fetchAddCategory } from "redux/middleware/articlesPost";
+import {
+  fetchAddCategory,
+  fetchUpdateCategory,
+} from "redux/middleware/articlesPost";
 import { useDispatch, useSelector } from "react-redux";
 import { addContent } from "redux/contentSlice";
 
 export const FormAddCategory = () => {
   const dispatch = useDispatch();
-  const { blockMenu } = useSelector((state) => state.contentReducer);
+  const { blockMenu, editCategory } = useSelector(
+    (state) => state.contentReducer
+  );
+
   const onFinish = (values) => {
-    // console.log("Received values of form: ", values);
-    dispatch(fetchAddCategory(values));
+    editCategory?.title
+      ? dispatch(
+          fetchUpdateCategory({
+            id: editCategory?.id,
+            title: values.category,
+          })
+        )
+      : dispatch(fetchAddCategory(values));
     dispatch(addContent(""));
   };
 
   return (
     <Form onFinish={onFinish} name={"addCategory"} className={s.form}>
       <Form.Item
+        hidden={editCategory?.title}
         rules={[
           {
-            required: true,
+            required: !editCategory?.title && true,
             message: "Выберите блок меню!",
           },
         ]}
@@ -43,6 +56,7 @@ export const FormAddCategory = () => {
         name={"category"}
         label={"Название раздела"}
         className={s.input}
+        initialValue={editCategory?.title}
       >
         <Input />
       </Form.Item>
