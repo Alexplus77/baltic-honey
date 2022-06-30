@@ -4,7 +4,7 @@ import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 import { uploadMedia } from "redux/middleware/articlesPost";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./MediaEditor.module.css";
-
+//ok
 export const MediaEditor = () => {
   const { uploadMediaItems } = useSelector((state) => state.contentReducer);
   const dispatch = useDispatch();
