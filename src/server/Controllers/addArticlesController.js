@@ -1,4 +1,3 @@
-// Добавляем статьи
 const Articles = require("../Models/articleModel");
 exports.articlesPostControllers = (req, res) => {
   try {
