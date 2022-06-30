@@ -30,7 +30,7 @@ export const MediaEditor = () => {
         >
           <Upload
             name="file"
-            action="http://localhost:8080/uploadMedia"
+            action={`${process.env.REACT_APP_URL}uploadMedia`}
             listType="picture"
           >
             <Button icon={<UploadOutlined />}>Click to upload</Button>
