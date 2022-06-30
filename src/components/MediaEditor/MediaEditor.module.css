@@ -1,0 +1,18 @@
+.containerMediaEditor{
+    display: grid;
+}
+.mediaItems{
+    display: grid;
+    max-height: 500px;
+gap: 10px;
+    grid-template-columns: repeat(2, fit-content(200px));
+    overflow: auto;
+}
+.cardImage{
+    display: grid;
+    gap: 10px;
+grid-auto-flow: column;
+}
+.describe{
+    display: grid;
+}

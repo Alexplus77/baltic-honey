@@ -10,6 +10,7 @@ import {
   fetchGetCategoriesMenu,
   fetchRemoveArticle,
   fetchUpdateArticle,
+  uploadMedia,
 } from "./middleware/articlesPost";
 
 const contentSlice = createSlice({
@@ -26,8 +27,14 @@ const contentSlice = createSlice({
     editCategory: false,
     isAddCategory: false,
     isAddArticle: false,
+    uploadMediaMod: false,
+    uploadMediaItems: [],
   },
   extraReducers: {
+    [uploadMedia.fulfilled]: (state, action) => {
+      state.uploadMediaItems = action.payload;
+      state.uploadMediaMod = false;
+    },
     [fetchUpdateArticle.fulfilled]: (state) => {
       state.toggleEditMod = !state.toggleEditMod;
       state.editArticle = null;
