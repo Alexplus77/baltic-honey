@@ -1,5 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+export const uploadMedia = createAsyncThunk("contentSlice/uploadMedia", () =>
+  axios
+    .get(`${process.env.REACT_APP_URL}getUploadMedia`)
+    .then(({ data }) => data)
+);
 export const fetchPostData = createAsyncThunk(
   "contentSlice/articlesPost",
   ({ category, data }) =>

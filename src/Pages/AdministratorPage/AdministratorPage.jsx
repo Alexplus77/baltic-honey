@@ -6,6 +6,7 @@ import { FormAddArticle } from "components/FormAddArticle";
 import { Button } from "antd";
 import { ArticlesList } from "components/ArticlesList";
 import { CategoriesList } from "components/CategoriesList";
+import { MediaEditor } from "components/MediaEditor";
 import { handleAddCategory, handleAddArticle } from "redux/contentSlice";
 
 export const AdministratorPage = () => {
@@ -28,6 +29,7 @@ export const AdministratorPage = () => {
             Добавить статью
           </Button>
         </div>
+        <MediaEditor />
         {!isAddArticle && !isAddCategory ? <ArticlesList /> : null}
         {!isAddArticle && !isAddCategory ? <CategoriesList /> : null}
         {isAddCategory && <FormAddCategory />}

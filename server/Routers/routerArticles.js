@@ -10,7 +10,25 @@ const removeArticle = require("../Controllers/removeArticleController");
 const updateArticle = require("../Controllers/updateArticleController");
 const removeCategory = require("../Controllers/removeCategoryController");
 const updateCategory = require("../Controllers/updateCategoryController");
+const uploadMedia = require("../Controllers/uploadMediaController");
+const getUploadMedia = require("../Controllers/getUploadMedia");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploadMedia");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 
+router.post(
+  "/uploadMedia",
+  upload.single("file"),
+  uploadMedia.uploadMediaController
+);
+router.get("/getUploadMedia", getUploadMedia.getUploadMedia);
 router.post("/updateCategory", updateCategory.updateCategory);
 router.post("/removeCategory", removeCategory.removeCategory);
 router.post("/updateArticle", updateArticle.updateArticle);

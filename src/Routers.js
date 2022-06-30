@@ -1,7 +1,6 @@
 import { Layout } from "Pages/Layout";
 import { Routes, Route } from "react-router";
 import { MainPage } from "Pages/MainPage";
-import { ArticlesPage } from "./Pages/ArticlesPage";
 import { AdministratorPage } from "./Pages/AdministratorPage";
 
 export const Routers = () => {
