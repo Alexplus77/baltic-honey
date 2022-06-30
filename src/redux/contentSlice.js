@@ -12,7 +12,7 @@ import {
   fetchUpdateArticle,
   uploadMedia,
 } from "./middleware/articlesPost";
-
+//ok
 const contentSlice = createSlice({
   name: "contentSlice",
   initialState: {
