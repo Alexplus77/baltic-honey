@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 // Контроллер удаления загруженного изображения, возвращает массив загруженых изображений.
-//ok
+
 exports.removeUploadMedia = (req, res) => {
   const name = req.params.name;
   try {
