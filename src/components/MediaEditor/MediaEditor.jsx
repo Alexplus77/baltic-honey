@@ -59,20 +59,20 @@ export const MediaEditor = () => {
             <img style={{ width: "100px" }} src={el.path} />
             <div className={s.describe}>
               <strong>Name: {el.name}</strong>
-              <div>
-                <em>Path: {el.path}</em>
-                <Tooltip title={"copy path"}>
-                  <CopyOutlined
-                    onClick={() => handleCopy(el.path)}
-                    className={s.iconCopy}
-                  />
-                </Tooltip>
-              </div>
+              <em>Path: {el.path}</em>
             </div>
-            <CloseOutlined
-              onClick={() => removeMedia(el.name)}
-              className={s.iconDelete}
-            />
+            <div className={s.containerActions}>
+              <CloseOutlined
+                onClick={() => removeMedia(el.name)}
+                className={s.iconDelete}
+              />
+              <Tooltip title={"copy path"}>
+                <CopyOutlined
+                  onClick={() => handleCopy(el.path)}
+                  className={s.iconCopy}
+                />
+              </Tooltip>
+            </div>
           </div>
         ))}
       </div>
