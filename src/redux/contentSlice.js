@@ -11,8 +11,9 @@ import {
   fetchRemoveArticle,
   fetchUpdateArticle,
   uploadMedia,
+  removeUploadMedia,
 } from "./middleware/articlesPost";
-
+//ok
 const contentSlice = createSlice({
   name: "contentSlice",
   initialState: {
@@ -31,6 +32,10 @@ const contentSlice = createSlice({
     uploadMediaItems: [],
   },
   extraReducers: {
+    [removeUploadMedia.fulfilled]: (state, action) => {
+      state.uploadMediaItems = action.payload;
+      state.uploadMediaMod = !state.uploadMediaMod;
+    },
     [uploadMedia.fulfilled]: (state, action) => {
       state.uploadMediaItems = action.payload;
       state.uploadMediaMod = false;

@@ -16,3 +16,13 @@ grid-auto-flow: column;
 .describe{
     display: grid;
 }
+.iconDelete{
+    color: red;
+    font-size: 1.5em;
+    cursor: pointer;
+    height: fit-content;
+}
+.iconCopy{
+    font-size: 1.3em;
+    cursor: pointer;
+}

@@ -1,16 +1,32 @@
-import React, { useEffect, useRef } from "react";
-import { Form, Button, Upload } from "antd";
-import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
-import { uploadMedia } from "redux/middleware/articlesPost";
+import React, { useEffect, useState } from "react";
+import { Form, Button, Upload, Tooltip, message } from "antd";
+import {
+  InboxOutlined,
+  UploadOutlined,
+  CloseOutlined,
+  CopyOutlined,
+} from "@ant-design/icons";
+import { uploadMedia, removeUploadMedia } from "redux/middleware/articlesPost";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./MediaEditor.module.css";
 
 export const MediaEditor = () => {
-  const { uploadMediaItems } = useSelector((state) => state.contentReducer);
+  const [success, setSuccess] = useState(false);
+  const { uploadMediaItems, uploadMediaMod } = useSelector(
+    (state) => state.contentReducer
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(uploadMedia());
-  }, []);
+  }, [uploadMediaMod]);
+  const handleCopy = (path) => {
+    navigator.clipboard
+      .writeText(path)
+      .then(() => message.success("Success copied!!!"));
+  };
+  const removeMedia = (name) => {
+    dispatch(removeUploadMedia(name));
+  };
   const normFile = (e) => {
     dispatch(uploadMedia());
     if (Array.isArray(e)) {
@@ -43,8 +59,20 @@ export const MediaEditor = () => {
             <img style={{ width: "100px" }} src={el.path} />
             <div className={s.describe}>
               <strong>Name: {el.name}</strong>
-              <em>Path: {el.path}</em>
+              <div>
+                <em>Path: {el.path}</em>
+                <Tooltip title={"copy path"}>
+                  <CopyOutlined
+                    onClick={() => handleCopy(el.path)}
+                    className={s.iconCopy}
+                  />
+                </Tooltip>
+              </div>
             </div>
+            <CloseOutlined
+              onClick={() => removeMedia(el.name)}
+              className={s.iconDelete}
+            />
           </div>
         ))}
       </div>
