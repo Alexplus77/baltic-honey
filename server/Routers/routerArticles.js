@@ -11,6 +11,7 @@ const removeArticle = require("../Controllers/removeArticleController");
 const updateArticle = require("../Controllers/updateArticleController");
 const removeCategory = require("../Controllers/removeCategoryController");
 const updateCategory = require("../Controllers/updateCategoryController");
+const removeUploadMedia = require("../Controllers/removeUploadMedia");
 const uploadMedia = require("../Controllers/uploadMediaController");
 const getUploadMedia = require("../Controllers/getUploadMedia");
 const multer = require("multer");
@@ -29,6 +30,7 @@ router.post(
   upload.single("file"),
   uploadMedia.uploadMediaController
 );
+router.get("/removeUploadMedia:name", removeUploadMedia.removeUploadMedia);
 router.get("/getUploadMedia", getUploadMedia.getUploadMedia);
 router.post("/updateCategory", updateCategory.updateCategory);
 router.post("/removeCategory", removeCategory.removeCategory);

@@ -5,6 +5,14 @@ export const uploadMedia = createAsyncThunk("contentSlice/uploadMedia", () =>
     .get(`${process.env.REACT_APP_URL}getUploadMedia`)
     .then(({ data }) => data)
 );
+export const removeUploadMedia = createAsyncThunk(
+  "contentSlice/removeUploadMedia",
+  (name) => {
+    axios
+      .get(`${process.env.REACT_APP_URL}removeUploadMedia${name}`)
+      .then(({ data }) => data);
+  }
+);
 export const fetchPostData = createAsyncThunk(
   "contentSlice/articlesPost",
   ({ category, data }) =>
