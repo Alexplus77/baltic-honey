@@ -1,17 +1,30 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-export const uploadMedia = createAsyncThunk("contentSlice/uploadMedia", () =>
-  axios
-    .get(`${process.env.REACT_APP_URL}getUploadMedia`)
-    .then(({ data }) => data)
+
+export const uploadMedia = createAsyncThunk(
+  "contentSlice/uploadMedia",
+  (data) =>
+    axios
+      .post(`${process.env.REACT_APP_URL}uploadMedia`, data)
+      .then(({ data }) => data)
+      .catch(({ response }) => {
+        return { status: response.status, message: response.data.message };
+      })
+);
+export const getUploadMedia = createAsyncThunk(
+  "contentSlice/getUploadMedia",
+  () =>
+    axios
+      .get(`${process.env.REACT_APP_URL}getUploadMedia`)
+      .then(({ data }) => data)
+      .catch((e) => e)
 );
 export const removeUploadMedia = createAsyncThunk(
   "contentSlice/removeUploadMedia",
-  (name) => {
+  (name) =>
     axios
       .get(`${process.env.REACT_APP_URL}removeUploadMedia${name}`)
-      .then(({ data }) => data);
-  }
+      .then(({ data }) => data)
 );
 export const fetchPostData = createAsyncThunk(
   "contentSlice/articlesPost",

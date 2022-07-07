@@ -11,13 +11,14 @@ import {
   fetchRemoveArticle,
   fetchUpdateArticle,
   uploadMedia,
+  getUploadMedia,
   removeUploadMedia,
 } from "./middleware/articlesPost";
 //ok
 const contentSlice = createSlice({
   name: "contentSlice",
   initialState: {
-    content: "<p>This is the initial content of the editor.</p>",
+    content: "",
     blockMenu: [],
     server: "",
     categories: [],
@@ -28,17 +29,32 @@ const contentSlice = createSlice({
     editCategory: false,
     isAddCategory: false,
     isAddArticle: false,
-    uploadMediaMod: false,
     uploadMediaItems: [],
+    error: "",
   },
   extraReducers: {
-    [removeUploadMedia.fulfilled]: (state, action) => {
-      state.uploadMediaItems = action.payload;
-      state.uploadMediaMod = !state.uploadMediaMod;
-    },
     [uploadMedia.fulfilled]: (state, action) => {
-      state.uploadMediaItems = action.payload;
-      state.uploadMediaMod = false;
+      if (action.payload.status) {
+        state.error = action.payload;
+      } else {
+        state.uploadMediaItems = action.payload;
+        state.error = null;
+      }
+    },
+    [removeUploadMedia.fulfilled]: (state, action) => {
+      if (action.payload.status) {
+        state.error = action.payload;
+      } else {
+        state.uploadMediaItems = action.payload;
+        state.error = null;
+      }
+    },
+    [getUploadMedia.fulfilled]: (state, action) => {
+      if (action.payload.status) {
+        state.error = action.payload;
+      } else {
+        state.uploadMediaItems = action.payload;
+      }
     },
     [fetchUpdateArticle.fulfilled]: (state) => {
       state.toggleEditMod = !state.toggleEditMod;
@@ -80,6 +96,12 @@ const contentSlice = createSlice({
     },
   },
   reducers: {
+    exitErrorMod: (state) => {
+      state.error = null;
+    },
+    onErrorMod: (state, action) => {
+      state.error = action.payload;
+    },
     handleAddCategory: (state) => {
       state.isAddCategory = !state.isAddCategory;
       state.isAddArticle = false;
@@ -111,5 +133,7 @@ export const {
   onEditCategory,
   handleAddCategory,
   handleAddArticle,
+  exitErrorMod,
+  onErrorMod,
 } = contentSlice.actions;
 export default contentSlice.reducer;

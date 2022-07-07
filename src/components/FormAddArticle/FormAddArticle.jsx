@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Form, Input, Select, Button } from "antd";
 import s from "./FormAddArticle.module.css";
 import { EditorText } from "components/EditorText";
@@ -8,17 +8,15 @@ import {
   fetchPostData,
   fetchUpdateArticle,
 } from "redux/middleware/articlesPost";
-import { addContent } from "redux/contentSlice";
+import { addContent, onErrorMod } from "redux/contentSlice";
 
 export const FormAddArticle = () => {
   const dispatch = useDispatch();
   const { content, editArticle, blockMenu, categoriesMenu } = useSelector(
     (state) => state.contentReducer
   );
-  const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    //console.log("values", { ...values, content: content });
     content.trim()
       ? editArticle?.title
         ? dispatch(
@@ -33,8 +31,9 @@ export const FormAddArticle = () => {
               data: { ...values, content: content },
             })
           )
-      : console.log("Ошибка: Добавьте содержимое статьи!!!");
-    form.resetFields();
+      : dispatch(
+          onErrorMod({ status: 400, message: "Добавьте содержимое статьи" })
+        );
     dispatch(addContent(""));
   };
   const handleSelectBlock = (value) => {

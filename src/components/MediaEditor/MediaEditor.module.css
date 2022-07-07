@@ -1,5 +1,6 @@
 .containerMediaEditor{
     display: grid;
+    gap:20px
 }
 .mediaItems{
     display: grid;
@@ -7,6 +8,12 @@
 gap: 10px;
     grid-template-columns: repeat(2, fit-content(200px));
     overflow: auto;
+}
+.uploadImage{
+    display: grid;
+    gap: 10px;
+    width: fit-content;
+    grid-auto-flow: column;
 }
 .cardImage{
     display: grid;
