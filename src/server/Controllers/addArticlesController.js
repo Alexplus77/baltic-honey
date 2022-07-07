@@ -1,4 +1,5 @@
 const Articles = require("../Models/articleModel");
+//Контроллер сохраняет в базе данных статью
 exports.articlesPostControllers = (req, res) => {
   try {
     new Articles({

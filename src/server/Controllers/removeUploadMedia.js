@@ -1,18 +1,19 @@
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
+const ImageModel = require("../Models/imageModel");
+// Контроллер удаляет изображение и возвращает на фронтенд массив оставшихся изображений.
+
 exports.removeUploadMedia = (req, res) => {
   const name = req.params.name;
   try {
-    fs.unlink(`uploadMedia/${name}`, (err) => {
+    ImageModel.findOneAndRemove({ name: name }, {}, (err, doc) => {
       if (err) throw err;
-      const files = fs.readdirSync("uploadMedia").map((elem) => {
-        return {
-          id: uuidv4(),
-          name: elem,
-          path: `${process.env.URL_IMAGE}/${elem}`,
-        };
+      fs.unlink(`uploadMedia/${name}`, (err) => {
+        if (err) throw err;
       });
-      res.send(files);
+      ImageModel.find({}, (error, result) => {
+        res.send(result);
+      });
     });
   } catch (e) {
     res.status(400).send({ error: e });

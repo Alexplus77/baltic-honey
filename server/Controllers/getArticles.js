@@ -1,5 +1,5 @@
 const Articles = require("../Models/articleModel");
-
+//Контроллер отправляет на фронтенд из БД массив всех статей
 exports.getArticles = (req, res) => {
   try {
     Articles.find({})

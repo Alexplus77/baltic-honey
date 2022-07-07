@@ -1,4 +1,5 @@
 const Categories = require("../Models/categoryModel");
+// Контроллер обновляет в БД название категории.
 exports.updateCategory = (req, res) => {
   Categories.findByIdAndUpdate(
     req.body.id,

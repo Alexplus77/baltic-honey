@@ -1,5 +1,5 @@
 const Categories = require("../Models/categoryModel");
-
+//Контроллер отправляет на фронтенд из БД список категорий указанного меню.
 exports.getCategoriesMenu = (req, res) => {
   Categories.find(
     {
