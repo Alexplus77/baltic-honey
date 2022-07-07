@@ -1,4 +1,5 @@
 const Articles = require("../Models/articleModel");
+// Контроллер обновляет в БД контент и название статьи.
 exports.updateArticle = (req, res) => {
   console.log(req.body);
   Articles.findByIdAndUpdate(

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Upload, Tooltip, message } from "antd";
+import { Form, Button, Upload, Tooltip, message, Image } from "antd";
 import {
   InboxOutlined,
   UploadOutlined,
@@ -55,24 +55,31 @@ export const MediaEditor = () => {
       </Form>
       <div className={s.mediaItems}>
         {uploadMediaItems?.map((el) => (
-          <div key={el.id} className={s.cardImage}>
-            <img style={{ width: "100px" }} src={el.path} />
+          <div key={el._id} className={s.cardImage}>
+            <Image
+              width={100}
+              src={el.path}
+              preview={{
+                src: el.path,
+              }}
+            />
+            {/*<img style={{ width: "100px" }} src={el.path} />*/}
             <div className={s.describe}>
               <strong>Name: {el.name}</strong>
-              <div>
-                <em>Path: {el.path}</em>
-                <Tooltip title={"copy path"}>
-                  <CopyOutlined
-                    onClick={() => handleCopy(el.path)}
-                    className={s.iconCopy}
-                  />
-                </Tooltip>
-              </div>
+              <em>Path: {el.path}</em>
             </div>
-            <CloseOutlined
-              onClick={() => removeMedia(el.name)}
-              className={s.iconDelete}
-            />
+            <div className={s.containerActions}>
+              <CloseOutlined
+                onClick={() => removeMedia(el.name)}
+                className={s.iconDelete}
+              />
+              <Tooltip title={"copy path"}>
+                <CopyOutlined
+                  onClick={() => handleCopy(el.path)}
+                  className={s.iconCopy}
+                />
+              </Tooltip>
+            </div>
           </div>
         ))}
       </div>

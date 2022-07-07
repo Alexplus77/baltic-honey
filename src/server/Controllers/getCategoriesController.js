@@ -1,6 +1,5 @@
-const BlockMenuModel = require("../Models/blockMenuModel");
 const CategoryModel = require("../Models/categoryModel");
-
+//Контроллер отправляет на фронтенд из БД массив всех категорий.
 exports.getCategories = (req, res) => {
   try {
     CategoryModel.find({})

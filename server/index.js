@@ -7,8 +7,8 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
-const URI = "mongodb://127.0.0.1/baltic-honey";
-const uri2 =
+const URI2 = "mongodb://127.0.0.1/baltic-honey";
+const URI =
   "mongodb+srv://alexsuf:A27021986@cluster0.3uuhf.mongodb.net/baltic-honey?retryWrites=true&w=majority";
 
 app.use(cors());
@@ -22,7 +22,7 @@ app.get("/*", (req, res) => {
 });
 // app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 mongoose
-  .connect(uri2)
+  .connect(URI)
   .then(() =>
     app.listen(PORT, () => console.log(`Server started on port: ${PORT}`))
   )
