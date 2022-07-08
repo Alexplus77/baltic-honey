@@ -16,6 +16,6 @@ exports.removeUploadMedia = (req, res) => {
       });
     });
   } catch (e) {
-    res.status(400).send({ error: e });
+    res.status(400).send({ message: e });
   }
 };

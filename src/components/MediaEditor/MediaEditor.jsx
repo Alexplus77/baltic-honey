@@ -1,86 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Upload, Tooltip, message, Image } from "antd";
-import {
-  InboxOutlined,
-  UploadOutlined,
-  CloseOutlined,
-  CopyOutlined,
-} from "@ant-design/icons";
-import { uploadMedia, removeUploadMedia } from "redux/middleware/articlesPost";
+import { Button, Upload } from "antd";
+
+import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+import { getUploadMedia, uploadMedia } from "redux/middleware/articlesPost";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./MediaEditor.module.css";
+import { ImageCard } from "../ImageCard";
 
 export const MediaEditor = () => {
-  const [success, setSuccess] = useState(false);
-  const { uploadMediaItems, uploadMediaMod } = useSelector(
+  const [file, setFile] = useState(null);
+  const { uploadMediaItems, error } = useSelector(
     (state) => state.contentReducer
   );
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(uploadMedia());
-  }, [uploadMediaMod]);
-  const handleCopy = (path) => {
-    navigator.clipboard
-      .writeText(path)
-      .then(() => message.success("Success copied!!!"));
-  };
-  const removeMedia = (name) => {
-    dispatch(removeUploadMedia(name));
-  };
-  const normFile = (e) => {
-    dispatch(uploadMedia());
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
+    dispatch(getUploadMedia());
+  }, []);
+
+  const handleUploadFile = () => {
+    const data = new FormData();
+    data.append("file", file);
+    dispatch(uploadMedia(data));
   };
 
   return (
     <div className={s.containerMediaEditor}>
-      <Form>
-        <Form.Item
-          name="upload"
-          label="Upload"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
+      <div className={s.uploadImage}>
+        <Upload
+          name="file"
+          listType="picture"
+          beforeUpload={(file) => {
+            setFile(file);
+            return false;
+          }}
         >
-          <Upload
-            name="file"
-            action={`${process.env.REACT_APP_URL}uploadMedia`}
-            listType="picture"
-          >
-            <Button icon={<UploadOutlined />}>Click to upload</Button>
-          </Upload>
-        </Form.Item>
-      </Form>
+          <Button icon={<UploadOutlined />}>Click to upload</Button>
+        </Upload>
+        <Button type={"primary"} onClick={handleUploadFile}>
+          Отправить
+        </Button>
+      </div>
+
       <div className={s.mediaItems}>
         {uploadMediaItems?.map((el) => (
-          <div key={el._id} className={s.cardImage}>
-            <Image
-              width={100}
-              src={el.path}
-              preview={{
-                src: el.path,
-              }}
-            />
-            {/*<img style={{ width: "100px" }} src={el.path} />*/}
-            <div className={s.describe}>
-              <strong>Name: {el.name}</strong>
-              <em>Path: {el.path}</em>
-            </div>
-            <div className={s.containerActions}>
-              <CloseOutlined
-                onClick={() => removeMedia(el.name)}
-                className={s.iconDelete}
-              />
-              <Tooltip title={"copy path"}>
-                <CopyOutlined
-                  onClick={() => handleCopy(el.path)}
-                  className={s.iconCopy}
-                />
-              </Tooltip>
-            </div>
-          </div>
+          <ImageCard key={el._id} el={el} />
         ))}
       </div>
     </div>
