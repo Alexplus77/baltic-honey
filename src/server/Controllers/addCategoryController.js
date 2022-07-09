@@ -1,5 +1,6 @@
 const Categories = require("../Models/categoryModel");
 //Контроллер сохраняет в базе данных категорию
+
 exports.addCategory = (req, res) => {
   try {
     new Categories({

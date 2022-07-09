@@ -31,12 +31,14 @@ export const LogInCard = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
-          name="username"
+          name={["user", "email"]}
+          label="Email"
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+            },
+            {
+              type: "email",
             },
           ]}
         >

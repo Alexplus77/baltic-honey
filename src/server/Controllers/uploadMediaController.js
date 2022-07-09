@@ -1,8 +1,8 @@
 //Контроллер загрузки изображения и ответа на фронтенд, связан с мидлвейром от Multer.
 const ImageModel = require("../Models/imageModel");
+
 exports.uploadMediaController = async (req, res) => {
   let file = req.file;
-  //console.log(file);
   try {
     if (!file) {
       return res.status(400).send({ message: "Файл отсутствует" });

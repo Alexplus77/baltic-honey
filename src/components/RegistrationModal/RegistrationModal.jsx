@@ -2,6 +2,7 @@ import { Button, Modal, Form, Input, Checkbox } from "antd";
 import React, { useState } from "react";
 
 export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
+  const [confirm, setConfirm] = useState(false);
   const handleOk = () => {
     setIsModalVisible(false);
   };
@@ -16,6 +17,9 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+  const handleConfirm = (e) => {
+    setConfirm(e.target.checked);
   };
   return (
     <Modal
@@ -35,18 +39,19 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Логин"
-          name="username"
+          name={["user", "email"]}
+          label="Email"
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+            },
+            {
+              type: "email",
             },
           ]}
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Пароль"
           name="password"
@@ -71,9 +76,8 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
         >
           <Input.Password />
         </Form.Item>
-
         <Form.Item name="agreement" valuePropName="checked">
-          <Checkbox checked={true}>
+          <Checkbox checked={true} onClick={handleConfirm}>
             С правилами сайта ознакомлен и согласен на обработку личных данных
           </Checkbox>
         </Form.Item>
@@ -84,7 +88,7 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button disabled={!confirm} type="primary" htmlType="submit">
             Зарегестрироваться
           </Button>
         </Form.Item>
