@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 const cors = require("cors");
+const fs = require("fs");
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 const URI2 = "mongodb://127.0.0.1/baltic-honey";
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, "build")));
 app.get("/*", (req, res) => {
   res.sendFile(`${__dirname}/build/index.html`);
 });
+
 // app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 mongoose
   .connect(URI)

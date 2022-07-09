@@ -15,8 +15,13 @@ const removeUploadMedia = require("../Controllers/removeUploadMedia");
 const uploadMedia = require("../Controllers/uploadMediaController");
 const getUploadMedia = require("../Controllers/getUploadMedia");
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    if (!fs.existsSync(path.join("./uploadMedia"))) {
+      fs.mkdirSync(path.join("./uploadMedia"));
+    }
     cb(null, "./uploadMedia");
   },
   filename: function (req, file, cb) {
