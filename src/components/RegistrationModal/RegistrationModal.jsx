@@ -1,8 +1,11 @@
 import { Button, Modal, Form, Input, Checkbox } from "antd";
 import React, { useState } from "react";
+import { userRegistration } from "redux/middleware/userFetch";
+import { useDispatch } from "react-redux";
 
 export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
   const [confirm, setConfirm] = useState(false);
+  const dispatch = useDispatch();
   const handleOk = () => {
     setIsModalVisible(false);
   };
@@ -11,6 +14,13 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
     setIsModalVisible(false);
   };
   const onFinish = (values) => {
+    dispatch(
+      userRegistration({
+        email: values.email,
+        password: values.password,
+        agreementMailing: values.agreementMailing,
+      })
+    );
     setIsModalVisible(false);
     console.log("Success:", values);
   };
@@ -39,7 +49,7 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
         autoComplete="off"
       >
         <Form.Item
-          name={["user", "email"]}
+          name={"email"}
           label="Email"
           rules={[
             {
@@ -75,6 +85,11 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
           ]}
         >
           <Input.Password />
+        </Form.Item>
+        <Form.Item name="agreementMailing" valuePropName="checked">
+          <Checkbox>
+            Хочу принимать рассылку с последними новостями и предложениями.
+          </Checkbox>
         </Form.Item>
         <Form.Item name="agreement" valuePropName="checked">
           <Checkbox checked={true} onClick={handleConfirm}>

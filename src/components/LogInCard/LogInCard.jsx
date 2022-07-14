@@ -1,12 +1,16 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import { RegistrationModal } from "../RegistrationModal";
+import { RegistrationModal } from "components/RegistrationModal";
+import { userAuthentication } from "redux/middleware/userFetch";
+import { useDispatch } from "react-redux";
 import React from "react";
 import s from "./LogInCard.module.css";
 import { useState } from "react";
 export const LogInCard = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const dispatch = useDispatch();
   const onFinish = (values) => {
     console.log("Success:", values);
+    dispatch(userAuthentication(values));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -31,7 +35,7 @@ export const LogInCard = () => {
         autoComplete="off"
       >
         <Form.Item
-          name={["user", "email"]}
+          name={"email"}
           label="Email"
           rules={[
             {
