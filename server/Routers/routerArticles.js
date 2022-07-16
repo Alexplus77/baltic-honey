@@ -21,6 +21,7 @@ const { requiredAuth } = require("../middlewares/requiredAuth");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const { getAvatars } = require("../Controllers/getAvatars");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -34,7 +35,8 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-router.get("/userGetData", userGetData);
+router.get("/getAvatars", getAvatars);
+router.get("/userGetData", requiredAuth, userGetData);
 router.post("/authentication", userAuthentication.userAuthentication);
 router.post(
   "/uploadMedia",

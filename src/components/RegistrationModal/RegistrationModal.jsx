@@ -1,10 +1,15 @@
-import { Button, Modal, Form, Input, Checkbox } from "antd";
+import { Button, Modal, Form, Input, Checkbox, Avatar } from "antd";
 import React, { useState } from "react";
 import { userRegistration } from "redux/middleware/userFetch";
+import { SelectAvatarModal } from "components/SelectAvatarModal";
 import { useDispatch } from "react-redux";
-
+import s from "./RegistrationModal.module.css";
 export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
   const [confirm, setConfirm] = useState(false);
+  const [avatarPath, setAvatar] = useState(
+    "https://joeschmoe.io/api/v1/random"
+  );
+  const [isModalAvatarVisible, setIsModalAvatarVisible] = useState(false);
   const dispatch = useDispatch();
   const handleOk = () => {
     setIsModalVisible(false);
@@ -19,6 +24,7 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
         email: values.email,
         password: values.password,
         agreementMailing: values.agreementMailing,
+        avatar: avatarPath,
       })
     );
     setIsModalVisible(false);
@@ -39,6 +45,11 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
       onOk={handleOk}
       onCancel={handleCancel}
     >
+      <SelectAvatarModal
+        isModalAvatarVisible={isModalAvatarVisible}
+        setAvatar={setAvatar}
+        setIsModalAvatarVisible={setIsModalAvatarVisible}
+      />
       <Form
         name="basic"
         initialValues={{
@@ -48,6 +59,13 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
+        <div className={s.selectAvatar}>
+          <Avatar size={"large"} src={avatarPath} />
+          <Button onClick={() => setIsModalAvatarVisible(true)}>
+            Выберите аватар
+          </Button>
+        </div>
+
         <Form.Item
           name={"email"}
           label="Email"

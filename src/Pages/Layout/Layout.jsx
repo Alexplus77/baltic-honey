@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Header } from "components/Header";
 import { AsideBlockMenu } from "components/AsideBlockMenu";
 import { LogInCard } from "components/LogInCard";
+import { UserCard } from "components/UserCard";
 import { NavBar } from "components/NavBar";
 import { Outlet } from "react-router-dom";
 import s from "./Layout.module.css";
@@ -15,13 +16,13 @@ export const Layout = () => {
     (state) => state.contentReducer
   );
   const dispatch = useDispatch();
-  const menuAside = categories?.filter(
-    (category) => category?.blockMenu?.title === "menuAside"
-  );
   useEffect(() => {
     localStorage.getItem("token") && dispatch(userGetData());
   }, [isAuth]);
-  console.log(userData);
+  console.log(isAuth);
+  const menuAside = categories?.filter(
+    (category) => category?.blockMenu?.title === "menuAside"
+  );
   return (
     <div className={s.container}>
       <Modal
@@ -35,7 +36,7 @@ export const Layout = () => {
       <Header />
       <NavBar />
       <aside>
-        <LogInCard />
+        {isAuth ? <UserCard /> : <LogInCard />}
         {menuAside?.map((menu) => (
           <AsideBlockMenu key={menu._id} item={menu} />
         ))}

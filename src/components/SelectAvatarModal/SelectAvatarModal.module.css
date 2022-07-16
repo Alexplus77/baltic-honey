@@ -1,0 +1,14 @@
+.containerAvatars{
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    grid-template-columns: repeat(3, 100px);
+    overflow: auto;
+}
+
+.image{
+    cursor: pointer;
+}
+.image:hover{
+border: 2px blue solid;
+}

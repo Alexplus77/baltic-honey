@@ -16,7 +16,7 @@ export const ImageCard = ({ el }) => {
     dispatch(removeUploadMedia(name));
   };
   return (
-    <div key={el._id} className={s.cardImage}>
+    <div key={el.name} className={s.cardImage}>
       <Image
         width={100}
         src={el.path}

@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routers);
 app.use("/uploadMedia", express.static(path.join(__dirname, "uploadMedia")));
+app.use("/avatars", express.static(path.join(__dirname, "avatars")));
 app.use(express.static(path.join(__dirname, "build")));
 app.get("/*", (req, res) => {
   res.sendFile(`${__dirname}/build/index.html`);

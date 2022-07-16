@@ -1,5 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+export const getAvatars = createAsyncThunk("contentSlice/getAvatars", () =>
+  axios
+    .get(`${process.env.REACT_APP_URL}getAvatars`)
+    .then(({ data }) => data)
+    .catch(({ response }) => {
+      return { status: response.status, message: response.data.message };
+    })
+);
 export const userGetData = createAsyncThunk("contentSlice/userGetData", () =>
   axios
     .get(`${process.env.REACT_APP_URL}userGetData`, {

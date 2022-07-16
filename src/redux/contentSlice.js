@@ -18,6 +18,7 @@ import {
   userRegistration,
   userAuthentication,
   userGetData,
+  getAvatars,
 } from "./middleware/userFetch";
 //ok
 const contentSlice = createSlice({
@@ -38,14 +39,23 @@ const contentSlice = createSlice({
     error: "",
     isAuth: false,
     userData: null,
+    avatarsList: [],
   },
   extraReducers: {
+    [getAvatars.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+      } else {
+        state.avatarsList = action.payload;
+      }
+    },
     [userGetData.fulfilled]: (state, action) => {
       if (action.payload?.status) {
         state.error = action.payload;
         state.isAuth = false;
       } else {
         state.userData = action.payload;
+        state.isAuth = true;
       }
     },
     [userAuthentication.fulfilled]: (state, action) => {
@@ -149,6 +159,9 @@ const contentSlice = createSlice({
     },
   },
   reducers: {
+    logOut: (state) => {
+      state.isAuth = false;
+    },
     exitErrorMod: (state) => {
       state.error = null;
     },
@@ -188,5 +201,6 @@ export const {
   handleAddArticle,
   exitErrorMod,
   onErrorMod,
+  logOut,
 } = contentSlice.actions;
 export default contentSlice.reducer;
