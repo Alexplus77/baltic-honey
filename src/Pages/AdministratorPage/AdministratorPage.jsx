@@ -3,32 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import s from "./AdministratorPage.module.css";
 import { FormAddCategory } from "components/FormAddCategory";
 import { FormAddArticle } from "components/FormAddArticle";
-import { Button, Modal } from "antd";
+import { Button } from "antd";
 import { ArticlesList } from "components/ArticlesList";
 import { CategoriesList } from "components/CategoriesList";
 import { MediaEditor } from "components/MediaEditor";
-import {
-  handleAddCategory,
-  handleAddArticle,
-  exitErrorMod,
-} from "redux/contentSlice";
+import { handleAddCategory, handleAddArticle } from "redux/contentSlice";
 
 export const AdministratorPage = () => {
-  const { isAddCategory, isAddArticle, error } = useSelector(
+  const { isAddCategory, isAddArticle } = useSelector(
     (state) => state.contentReducer
   );
   const dispatch = useDispatch();
-
   return (
     <main>
-      <Modal
-        visible={error?.status}
-        title={"Error"}
-        onOk={() => dispatch(exitErrorMod())}
-        onCancel={() => dispatch(exitErrorMod())}
-      >
-        Ошибка: {error?.message}
-      </Modal>
       <div className={s.cascaderContainer}>
         <h1>Панель управления контентом</h1>
         <div className={s.btnsContainer}>

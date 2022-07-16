@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import s from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchGetCategoriesMenu } from "../../redux/middleware/articlesPost";
 
 export const NavBar = () => {
   const dispatch = useDispatch();
+  const { isAuth, userData } = useSelector((state) => state.contentReducer);
   const activeClass = ({ isActive }) => (isActive ? s.active : s.navbar);
   const { categories } = useSelector((state) => state.contentReducer);
 
@@ -28,9 +28,12 @@ export const NavBar = () => {
           {link.title}
         </NavLink>
       ))}
-      <NavLink className={activeClass} to={"/administrator"}>
-        AdminPanel
-      </NavLink>
+      {isAuth && (
+        <NavLink className={activeClass} to={"/administrator"}>
+          {" "}
+          AdminPanel
+        </NavLink>
+      )}
     </nav>
   );
 };

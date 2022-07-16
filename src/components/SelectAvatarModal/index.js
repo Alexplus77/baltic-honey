@@ -1,0 +1,1 @@
+export { SelectAvatarModal } from "./SelectAvatarModal";

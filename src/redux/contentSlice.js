@@ -14,6 +14,12 @@ import {
   getUploadMedia,
   removeUploadMedia,
 } from "./middleware/articlesPost";
+import {
+  userRegistration,
+  userAuthentication,
+  userGetData,
+  getAvatars,
+} from "./middleware/userFetch";
 //ok
 const contentSlice = createSlice({
   name: "contentSlice",
@@ -31,8 +37,40 @@ const contentSlice = createSlice({
     isAddArticle: false,
     uploadMediaItems: [],
     error: "",
+    isAuth: false,
+    userData: null,
+    avatarsList: [],
   },
   extraReducers: {
+    [getAvatars.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+      } else {
+        state.avatarsList = action.payload;
+      }
+    },
+    [userGetData.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+        state.isAuth = false;
+      } else {
+        state.userData = action.payload;
+        state.isAuth = true;
+      }
+    },
+    [userAuthentication.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+        state.isAuth = false;
+      } else {
+        state.isAuth = true;
+      }
+    },
+    [userRegistration.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+      }
+    },
     [uploadMedia.fulfilled]: (state, action) => {
       if (action.payload.status) {
         state.error = action.payload;
@@ -56,13 +94,23 @@ const contentSlice = createSlice({
         state.uploadMediaItems = action.payload;
       }
     },
-    [fetchUpdateArticle.fulfilled]: (state) => {
-      state.toggleEditMod = !state.toggleEditMod;
-      state.editArticle = null;
-      state.isAddArticle = false;
+    [fetchUpdateArticle.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+        state.isAuth = false;
+      } else {
+        state.toggleEditMod = !state.toggleEditMod;
+        state.editArticle = null;
+        state.isAddArticle = false;
+      }
     },
-    [fetchRemoveArticle.fulfilled]: (state) => {
-      state.toggleEditMod = !state.toggleEditMod;
+    [fetchRemoveArticle.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+        state.isAuth = false;
+      } else {
+        state.toggleEditMod = !state.toggleEditMod;
+      }
     },
     [fetchGetCategoriesMenu.fulfilled]: (state, action) => {
       state.categoriesMenu = action.payload;
@@ -76,17 +124,32 @@ const contentSlice = createSlice({
       state.isAddArticle = false;
     },
     [fetchAddCategory.fulfilled]: (state, action) => {
-      state.toggleEditMod = !state.toggleEditMod;
-      state.server = action.payload;
-      state.isAddCategory = false;
+      if (action.payload?.status) {
+        state.error = action.payload;
+        state.isAuth = false;
+      } else {
+        state.toggleEditMod = !state.toggleEditMod;
+        state.server = action.payload;
+        state.isAddCategory = false;
+      }
     },
-    [fetchUpdateCategory.fulfilled]: (state) => {
-      state.toggleEditMod = !state.toggleEditMod;
-      state.editCategory = null;
-      state.isAddCategory = false;
+    [fetchUpdateCategory.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+        state.isAuth = false;
+      } else {
+        state.toggleEditMod = !state.toggleEditMod;
+        state.editCategory = null;
+        state.isAddCategory = false;
+      }
     },
-    [fetchRemoveCategory.fulfilled]: (state) => {
-      state.toggleEditMod = !state.toggleEditMod;
+    [fetchRemoveCategory.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+        state.isAuth = false;
+      } else {
+        state.toggleEditMod = !state.toggleEditMod;
+      }
     },
     [fetchGetCategories.fulfilled]: (state, action) => {
       state.categories = action.payload;
@@ -96,6 +159,9 @@ const contentSlice = createSlice({
     },
   },
   reducers: {
+    logOut: (state) => {
+      state.isAuth = false;
+    },
     exitErrorMod: (state) => {
       state.error = null;
     },
@@ -135,5 +201,6 @@ export const {
   handleAddArticle,
   exitErrorMod,
   onErrorMod,
+  logOut,
 } = contentSlice.actions;
 export default contentSlice.reducer;

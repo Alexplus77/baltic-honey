@@ -7,11 +7,12 @@ exports.removeUploadMedia = (req, res) => {
   const name = req.params.name;
   try {
     ImageModel.findOneAndRemove({ name: name }, {}, (err, doc) => {
-      if (err) throw err;
+      if (err) throw "Файл не найден";
       fs.unlink(`uploadMedia/${name}`, (err) => {
-        if (err) throw err;
+        if (err) throw "Файл не найден";
       });
       ImageModel.find({}, (error, result) => {
+        if (error) throw "В базе данных такого изображения нет";
         res.send(result);
       });
     });
