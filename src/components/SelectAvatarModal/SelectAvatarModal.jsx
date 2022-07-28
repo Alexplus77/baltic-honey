@@ -21,7 +21,7 @@ export const SelectAvatarModal = ({
   const handleCancel = () => {
     setIsModalAvatarVisible(false);
   };
-  console.log(avatarsList);
+
   return (
     <Modal
       title="Выбор аватарок"

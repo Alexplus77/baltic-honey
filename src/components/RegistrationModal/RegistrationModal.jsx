@@ -7,8 +7,9 @@ import s from "./RegistrationModal.module.css";
 export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
   const [confirm, setConfirm] = useState(false);
   const [avatarPath, setAvatar] = useState(
-    "https://joeschmoe.io/api/v1/random"
+    `${process.env.REACT_APP_URL}avatars/avatarDefault.png`
   );
+
   const [isModalAvatarVisible, setIsModalAvatarVisible] = useState(false);
   const dispatch = useDispatch();
   const handleOk = () => {
@@ -28,7 +29,7 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
       })
     );
     setIsModalVisible(false);
-    console.log("Success:", values);
+    console.log("Success:", avatarPath);
   };
 
   const onFinishFailed = (errorInfo) => {

@@ -44,7 +44,7 @@ export const MediaEditor = () => {
 
       <div className={s.mediaItems}>
         {uploadMediaItems?.map((el) => (
-          <ImageCard key={el._id} el={el} />
+          <ImageCard key={el.name} el={el} />
         ))}
       </div>
     </div>
