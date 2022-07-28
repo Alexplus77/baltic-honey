@@ -1,0 +1,47 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .body{
+
+            width: 100%;
+            padding: 20px;
+            min-height: fit-content;
+        }
+
+
+        ul{
+            list-style-type: none;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background-color: #8cc8ff" class="body">
+    <h1 class="h1">Поздравляем!!!</h1>
+    <h2 class="h2">Вы зарегестрировались на сайте<a href="<%= siteLink %>"> "Балтийский мёд"</a></h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>
+                <img width="150px" src="<%=  userAvatar%>">
+            </th>
+            <th>
+                <strong>Ваши регистрационные данные</strong>
+                <ul>
+                    <li>Логин: <%=  userEmail%></li>
+                    <li>Пароль: <%=  userPassword%></li>
+                </ul>
+            </th>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <!--    <span class="linkAvatar"><%=  userAvatar%></span>-->
+</body>
+</html>

@@ -15,6 +15,8 @@ import {
   removeUploadMedia,
 } from "./middleware/articlesPost";
 import {
+  changeUserAvatar,
+  changeUserPassword,
   userRegistration,
   userAuthentication,
   userGetData,
@@ -42,9 +44,25 @@ const contentSlice = createSlice({
     avatarsList: [],
   },
   extraReducers: {
+    [changeUserPassword.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+      } else {
+        state.userData = action.payload;
+      }
+    },
+    [changeUserAvatar.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+        state.isAuth = false;
+      } else {
+        state.userData = action.payload;
+      }
+    },
     [getAvatars.fulfilled]: (state, action) => {
       if (action.payload?.status) {
         state.error = action.payload;
+        state.isAuth = false;
       } else {
         state.avatarsList = action.payload;
       }

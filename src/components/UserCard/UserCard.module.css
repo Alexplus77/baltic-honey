@@ -1,7 +1,7 @@
 .container{
     display: grid;
     border-radius: 10px;
-
+padding-right: 5px;
 }
 .btnContainer{
     padding-top: 20px;

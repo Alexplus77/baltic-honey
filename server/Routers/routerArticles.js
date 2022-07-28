@@ -22,6 +22,8 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 const { getAvatars } = require("../Controllers/getAvatars");
+const { changeUserAvatar } = require("../Controllers/changeUserAvatar");
+const { changeUserPassword } = require("../Controllers/changeUserPassword");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -44,6 +46,8 @@ router.post(
   upload.single("file"),
   uploadMedia.uploadMediaController
 );
+router.post("/changePassword", requiredAuth, changeUserPassword);
+router.post("/changeAvatar", requiredAuth, changeUserAvatar);
 router.post("/userRegistration", userRegistration.userRegistration);
 router.get(
   "/removeUploadMedia:name",
