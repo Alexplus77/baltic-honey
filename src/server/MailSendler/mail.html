@@ -5,42 +5,43 @@
 
 <head>
     <style>
-        body{
-            background-color: #8cc8ff;
+        .body{
+
             width: 100%;
             padding: 20px;
             min-height: fit-content;
         }
-.userCard{
-    position: relative;
-}
-img{
-  position: absolute;
-}
-ul{
-    list-style-type: none;
-    position: absolute;
-    margin-left: 30%;
-}
+
+
+        ul{
+            list-style-type: none;
+        }
 
     </style>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body >
-<div class="body">
+<body style="background-color: #8cc8ff" class="body">
     <h1 class="h1">Поздравляем!!!</h1>
-    <h2 class="h2">Вы зарегестрировались на сайте "Балтийский мёд"</h2>
-  <div class="userCard">
-      <img width="150px" src="<%=  userAvatar%>">
-      <ul>
-          <li><strong>Ваши регистрационные данные</strong></li>
-          <li>Логин: <%=  userEmail%></li>
-          <li>Пароль: <%=  userPassword%></li>
-      </ul>
-  </div>
-    <!--    <span class="linkAvatar"><%=  userAvatar%></span>-->
-</div>
+    <h2 class="h2">Вы зарегестрировались на сайте<a href="<%= siteLink %>"> "Балтийский мёд"</a></h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>
+                <img width="150px" src="<%=  userAvatar%>">
+            </th>
+            <th>
+                <strong>Ваши регистрационные данные</strong>
+                <ul>
+                    <li>Логин: <%=  userEmail%></li>
+                    <li>Пароль: <%=  userPassword%></li>
+                </ul>
+            </th>
+        </tr>
 
+        </tbody>
+    </table>
+
+    <!--    <span class="linkAvatar"><%=  userAvatar%></span>-->
 </body>
 </html>

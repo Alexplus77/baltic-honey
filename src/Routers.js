@@ -2,6 +2,7 @@ import { Layout } from "Pages/Layout";
 import { Routes, Route } from "react-router";
 import { MainPage } from "Pages/MainPage";
 import { AdministratorPage } from "./Pages/AdministratorPage";
+import { UserManagementPage } from "./Pages/UserManagementPage";
 import { RequiredAuth } from "./Hocs/requiredAuth";
 
 export const Routers = () => {
@@ -17,6 +18,15 @@ export const Routers = () => {
             </RequiredAuth>
           }
         />
+        <Route
+          path={"/userManagement"}
+          element={
+            <RequiredAuth>
+              <UserManagementPage />
+            </RequiredAuth>
+          }
+        />
+
         <Route path={"/:category/:name"} element={<MainPage />} />
       </Route>
     </Routes>

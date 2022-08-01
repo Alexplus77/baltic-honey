@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import s from "./AdministratorPage.module.css";
 import { FormAddCategory } from "components/FormAddCategory";
 import { FormAddArticle } from "components/FormAddArticle";
@@ -17,6 +18,9 @@ export const AdministratorPage = () => {
   return (
     <main>
       <div className={s.cascaderContainer}>
+        <Button className={s.btnUserManagement} type={"primary"}>
+          <Link to={"/userManagement"}> Управление пользователями</Link>
+        </Button>
         <h1>Панель управления контентом</h1>
         <div className={s.btnsContainer}>
           <Button

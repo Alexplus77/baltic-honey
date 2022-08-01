@@ -11,7 +11,7 @@ exports.requiredAuth = (req, res, next) => {
         if (error) {
           return res.status(409).send({ message: "Вы не авторизованы" });
         }
-        if (result.email) {
+        if (result?.email) {
           if (result.password !== decoded.password) {
             return res.status(409).send({ message: "Вы не авторизованы" });
           }

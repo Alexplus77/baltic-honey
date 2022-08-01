@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Modal } from "antd";
 import axios from "axios";
 
 export const changeUserPassword = createAsyncThunk(
@@ -67,7 +68,14 @@ export const userRegistration = createAsyncThunk(
   (data) =>
     axios
       .post(`${process.env.REACT_APP_URL}userRegistration`, data)
-      .then(({ data }) => data)
+      .then(({ data }) => {
+        Modal.success({
+          title: "Вы успешно зарегестрировались!!!",
+          content:
+            " Ваш логин и пароль отправлены на почту указанную при регистрации",
+        });
+        return data;
+      })
       .catch(({ response }) => {
         return { status: response.status, message: response.data.message };
       })

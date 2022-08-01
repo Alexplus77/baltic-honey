@@ -1,5 +1,5 @@
 const fs = require("fs");
-const ImageModel = require("../../Models/imageModel");
+
 //Контроллер отправляет на фронтенд с БД список всех загруженных изображений в папке uploadMedia.
 exports.getUploadMedia = (req, res) => {
   try {

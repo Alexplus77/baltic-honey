@@ -1,0 +1,19 @@
+.container{
+    display: grid;
+}
+.iconMailSend{
+    font-size: 1.5em;
+    justify-self: right;
+    padding: 1% 4% 0 0;
+}
+.iconMailSend > *{
+    cursor: pointer;
+}
+.btns{
+
+    font-size: 1.5em;
+}
+
+.btns > *{
+    cursor: pointer;
+}
