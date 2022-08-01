@@ -11,7 +11,7 @@ import {
 export const EditProfile = ({ editProfile, setEditProfile }) => {
   const { userData } = useSelector((state) => state.contentReducer);
   const [isModalAvatarVisible, setIsModalAvatarVisible] = useState(false);
-  const [avatarPath, setAvatar] = useState(userData?.avatar);
+  const [avatarPath, setAvatar] = useState(() => userData?.avatar);
 
   const dispatch = useDispatch();
   const onCancel = () => {
@@ -29,6 +29,7 @@ export const EditProfile = ({ editProfile, setEditProfile }) => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <Modal visible={editProfile} onCancel={onCancel} footer={null}>
       <SelectAvatarModal

@@ -14,14 +14,25 @@ const updateCategory = require("../Controllers/categoriesControllers/updateCateg
 const removeUploadMedia = require("../Controllers/uploadMediaControllers/removeUploadMedia");
 const uploadMedia = require("../Controllers/uploadMediaControllers/uploadMediaController");
 const getUploadMedia = require("../Controllers/uploadMediaControllers/getUploadMedia");
-const userRegistration = require("../Controllers/userRegistration");
-const userAuthentication = require("../Controllers/userAuthentication");
-const { userGetData } = require("../Controllers/userGetData");
+const userRegistration = require("../Controllers/UserPanelControllers/userRegistration");
+const userAuthentication = require("../Controllers/UserPanelControllers/userAuthentication");
+const {
+  userGetData,
+} = require("../Controllers/UserPanelControllers/userGetData");
 const { requiredAuth } = require("../middlewares/requiredAuth");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
-const { getAvatars } = require("../Controllers/getAvatars");
+const {
+  getAvatars,
+} = require("../Controllers/UserPanelControllers/getAvatars");
+const {
+  changeUserAvatar,
+} = require("../Controllers/UserPanelControllers/changeUserAvatar");
+const {
+  changeUserPassword,
+} = require("../Controllers/UserPanelControllers/changeUserPassword");
+const { getUserList } = require("../Controllers/getUserList");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -35,6 +46,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
+router.get("/getUsersList", requiredAuth, getUserList);
 router.get("/getAvatars", getAvatars);
 router.get("/userGetData", requiredAuth, userGetData);
 router.post("/authentication", userAuthentication.userAuthentication);
@@ -44,6 +56,8 @@ router.post(
   upload.single("file"),
   uploadMedia.uploadMediaController
 );
+router.post("/changePassword", requiredAuth, changeUserPassword);
+router.post("/changeAvatar", requiredAuth, changeUserAvatar);
 router.post("/userRegistration", userRegistration.userRegistration);
 router.get(
   "/removeUploadMedia:name",

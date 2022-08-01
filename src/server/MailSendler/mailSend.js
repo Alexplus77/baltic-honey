@@ -3,15 +3,16 @@ const fs = require("fs");
 const path = require("path");
 const ejs = require("ejs");
 
-exports.mailSend = async (userData) => {
+exports.mailSend = async (userData, mail) => {
   const mailHtml = fs
-    .readFileSync(path.join(__dirname, "./mail.html"), "utf-8")
+    .readFileSync(path.join(__dirname, mail), "utf-8")
     .toString();
   const template = ejs.compile(mailHtml);
   const replace = {
+    siteLink: process.env.URL_IMAGE,
     userEmail: userData.email,
     userPassword: userData.password,
-    userAvatar: encodeURI(userData.avatar),
+    userAvatar: userData.avatar,
   };
   const htmlToSend = template(replace);
   let transporter = nodemailer.createTransport({
