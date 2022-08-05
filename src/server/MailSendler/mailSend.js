@@ -4,6 +4,7 @@ const path = require("path");
 const ejs = require("ejs");
 
 exports.mailSend = async (userData, mail) => {
+  const errorSendMail = `Не возможно отправить письмо на почту: ${userData.email}! Может быть такого адреса почты не существует.`;
   const mailHtml = fs
     .readFileSync(path.join(__dirname, mail), "utf-8")
     .toString();
@@ -24,11 +25,22 @@ exports.mailSend = async (userData, mail) => {
       pass: "yeItbPN4Cts1phNkJ619", // generated ethereal password
     },
   });
-  await transporter.sendMail({
-    from: '"Балтийский мёд" <alexplus77@mail.ru>',
-    to: userData.email,
-    subject: "Регистрационные данные",
-    text: "This message with attachments.",
-    html: htmlToSend,
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(
+      {
+        from: '"Балтийский мёд" <alexplus77@mail.ru>',
+        to: userData.email,
+        subject: "Регистрационные данные",
+        text: "This message with attachments.",
+        html: htmlToSend,
+      },
+      (err, info) => {
+        if (err) {
+          return reject(errorSendMail);
+        } else {
+          resolve(info);
+        }
+      }
+    );
   });
 };

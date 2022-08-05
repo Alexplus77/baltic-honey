@@ -1,0 +1,10 @@
+.container {
+    display: grid;
+}
+.form{
+    padding: 20px;
+    display: grid;
+}
+.btn{
+    justify-self: center;
+}

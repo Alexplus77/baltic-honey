@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema({
   password: String,
   role: String,
   avatar: String,
-  agreeMailing: Boolean,
+  agreementMailing: Boolean,
 });
 
 module.exports = mongoose.model("UserModel", UserSchema);
