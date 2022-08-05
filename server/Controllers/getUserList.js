@@ -5,7 +5,7 @@ exports.getUserList = async (req, res) => {
       "email",
       "role",
       "avatar",
-      "agreeMailing",
+      "agreementMailing",
     ]);
 
     res.send(usersList);

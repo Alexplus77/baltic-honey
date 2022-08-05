@@ -22,7 +22,11 @@ import {
   userGetData,
   getAvatars,
 } from "./middleware/userFetch";
-import { getUsersList, removeUsers } from "./middleware/getUsersList";
+import {
+  getUsersList,
+  removeUsers,
+  editUsersRole,
+} from "./middleware/getUsersList";
 //ok
 const contentSlice = createSlice({
   name: "contentSlice",
@@ -46,6 +50,13 @@ const contentSlice = createSlice({
     usersList: [],
   },
   extraReducers: {
+    [editUsersRole.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+      } else {
+        state.usersList = action.payload;
+      }
+    },
     [removeUsers.fulfilled]: (state, action) => {
       if (action.payload?.status) {
         state.error = action.payload;

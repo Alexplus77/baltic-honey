@@ -1,4 +1,4 @@
-import React, { useState, useId } from "react";
+import React, { useState, useId, useRef, useEffect } from "react";
 import { Avatar, Button, Checkbox, Form, Input, Modal } from "antd";
 import { SelectAvatarModal } from "../SelectAvatarModal";
 import s from "./EditProfile.module.css";
@@ -11,7 +11,11 @@ import {
 export const EditProfile = ({ editProfile, setEditProfile }) => {
   const { userData } = useSelector((state) => state.contentReducer);
   const [isModalAvatarVisible, setIsModalAvatarVisible] = useState(false);
-  const [avatarPath, setAvatar] = useState(() => userData?.avatar);
+  const [avatarPath, setAvatar] = useState(userData?.avatar);
+
+  useEffect(() => {
+    setAvatar(userData?.avatar);
+  }, [userData?.avatar]);
 
   const dispatch = useDispatch();
   const onCancel = () => {

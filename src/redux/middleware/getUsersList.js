@@ -1,5 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+export const editUsersRole = createAsyncThunk(
+  "contentSlice/editUsersList",
+  (data) =>
+    axios
+      .post(`${process.env.REACT_APP_URL}editUsersRole`, data, {
+        headers: { Authorisation: `Bearer:${localStorage.getItem("token")}` },
+      })
+      .then(({ data }) => data)
+      .catch(({ response }) => {
+        response.status !== 402 && localStorage.removeItem("token");
+        return { status: response.status, message: response.data.message };
+      })
+);
 export const removeUsers = createAsyncThunk(
   "contentSlice/removeUsers",
   (data) =>

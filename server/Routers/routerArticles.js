@@ -34,6 +34,7 @@ const {
 } = require("../Controllers/UserPanelControllers/changeUserPassword");
 const { getUserList } = require("../Controllers/getUserList");
 const { removeUsers } = require("../Controllers/removeUsers");
+const { editUsersRole } = require("../Controllers/editUsersRole");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -47,6 +48,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
+router.post("/editUsersRole", requiredAuth, editUsersRole);
 router.post("/removeUsers", requiredAuth, removeUsers);
 router.get("/getUsersList", requiredAuth, getUserList);
 router.get("/getAvatars", getAvatars);

@@ -21,7 +21,9 @@ exports.changeUserPassword = async (req, res) => {
             password: req.body.passwordNew,
           },
           "./mailChangePassword.html"
-        );
+        ).catch((e) => {
+          if (e) throw e;
+        });
       }
     );
   } catch (e) {
