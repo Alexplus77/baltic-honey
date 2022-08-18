@@ -1,0 +1,8 @@
+.editor{
+    display: grid;
+    margin-top: 20px;
+}
+.button{
+    width: 50%;
+    justify-self: center;
+}

@@ -23,6 +23,7 @@ import {
   getAvatars,
 } from "./middleware/userFetch";
 import {
+  sendMail,
   getUsersList,
   removeUsers,
   editUsersRole,
@@ -50,6 +51,11 @@ const contentSlice = createSlice({
     usersList: [],
   },
   extraReducers: {
+    [sendMail.fulfilled]: (state, action) => {
+      if (action.payload?.status) {
+        state.error = action.payload;
+      }
+    },
     [editUsersRole.fulfilled]: (state, action) => {
       if (action.payload?.status) {
         state.error = action.payload;

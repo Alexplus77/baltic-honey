@@ -5,11 +5,13 @@ import { CloseOutlined, EditOutlined, MailOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { removeUsers } from "redux/middleware/getUsersList";
 import { EditUserRole } from "../EditUserRole";
+import { EditorMail } from "components/EditorMail";
 
 export const UsersList = () => {
   const { usersList } = useSelector((state) => state.contentReducer);
   const [selectedRows, setSelectedRows] = useState([]);
   const [editRole, setEditRole] = useState(false);
+  const [mailingMode, setMailingMode] = useState(false);
   const dispatch = useDispatch();
 
   const columns = [
@@ -68,6 +70,12 @@ export const UsersList = () => {
 
   return (
     <section className={s.container}>
+      <EditorMail
+        mailingMod={mailingMode}
+        selectedRows={selectedRows}
+        setMailingMode={setMailingMode}
+        setSelectedRows={setSelectedRows}
+      />
       <EditUserRole
         editRole={editRole}
         setEditRole={setEditRole}
@@ -79,7 +87,7 @@ export const UsersList = () => {
           title={"Написать письмо выделенным пользователям"}
           color={"blue"}
         >
-          <MailOutlined />
+          <MailOutlined onClick={() => setMailingMode(true)} />
         </Tooltip>
         <Tooltip
           title={"Редактировать роль выделенных пользователей"}

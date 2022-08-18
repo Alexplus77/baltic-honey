@@ -18,8 +18,9 @@ export const ImageCard = ({ el }) => {
   return (
     <div key={el.name} className={s.cardImage}>
       <Image
-        width={100}
+        className={s.image}
         src={el.path}
+        width={100}
         preview={{
           src: el.path,
         }}
