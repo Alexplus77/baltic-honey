@@ -1,22 +1,9 @@
-body{
-  display: grid;
-  min-height: 100vh;
-  height: auto;
-top:0;
-  bottom:0;
-  left:0;
-  justify-items: center;
-  background-image: url("./Images/background-beekeeping.jpg");
-background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100%;
- backdrop-filter:  blur(7px) ;
-  -webkit-backdrop-filter: blur(7px);
-}
+
 
 .App {
   display: grid;
   width: 1300px;
-
+margin-top: 10px;
 }
+
 
