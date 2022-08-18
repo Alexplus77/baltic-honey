@@ -8,10 +8,8 @@ import { useState } from "react";
 export const LogInCard = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    dispatch(userAuthentication(values));
-  };
+
+  const onFinish = (values) => dispatch(userAuthentication(values));
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

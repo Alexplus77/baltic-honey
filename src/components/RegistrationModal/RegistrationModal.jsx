@@ -1,5 +1,5 @@
 import { Button, Modal, Form, Input, Checkbox, Avatar } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { userRegistration } from "redux/middleware/userFetch";
 import { SelectAvatarModal } from "components/SelectAvatarModal";
 import { useDispatch } from "react-redux";
@@ -9,16 +9,15 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
   const [avatarPath, setAvatar] = useState(
     `${process.env.REACT_APP_URL}avatars/avatarDefault.png`
   );
-
+  const [form2] = Form.useForm();
   const [isModalAvatarVisible, setIsModalAvatarVisible] = useState(false);
   const dispatch = useDispatch();
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    form2.resetFields();
   };
+
   const onFinish = (values) => {
     dispatch(
       userRegistration({
@@ -29,7 +28,7 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
       })
     );
     setIsModalVisible(false);
-    console.log("Success:", avatarPath);
+    form2.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -43,7 +42,6 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
       footer={null}
       title="Форма регистрации"
       visible={isModalVisible}
-      onOk={handleOk}
       onCancel={handleCancel}
     >
       <SelectAvatarModal
@@ -52,9 +50,10 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
         setIsModalAvatarVisible={setIsModalAvatarVisible}
       />
       <Form
-        name="basic"
+        form={form2}
+        name="registration"
         initialValues={{
-          remember: true,
+          remember: false,
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -78,6 +77,7 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
               type: "email",
             },
           ]}
+          hasFeedback
         >
           <Input />
         </Form.Item>
@@ -86,22 +86,45 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
           name="password"
           rules={[
             {
+              min: 6,
+              message: "Пароль должен быть не меньше 6 символов",
+            },
+            {
+              validator(_, value) {
+                return !value.includes(" ")
+                  ? Promise.resolve()
+                  : Promise.reject("Пароль не должен содержать пробелы");
+              },
+            },
+            {
               required: true,
               message: "Please input your password!",
             },
           ]}
+          hasFeedback
         >
           <Input.Password />
         </Form.Item>
         <Form.Item
           label="Повторите пароль"
           name="passwordRepeat"
+          dependencies={["password"]}
           rules={[
+            ({ getFieldsValue }) => ({
+              validator(__, value) {
+                if (!value || getFieldsValue().password === value) {
+                  return Promise.resolve();
+                } else {
+                  return Promise.reject("Пароли не совпадают");
+                }
+              },
+            }),
             {
               required: true,
               message: "Повторите пароль!",
             },
           ]}
+          hasFeedback
         >
           <Input.Password />
         </Form.Item>
