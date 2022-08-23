@@ -1,7 +1,7 @@
-const nodemailer = require("nodemailer");
 const fs = require("fs");
-const path = require("path");
+const nodemailer = require("nodemailer");
 const ejs = require("ejs");
+const path = require("path");
 
 exports.mailSend = async (userData, mail) => {
   const errorSendMail = `Не возможно отправить письмо на почту: ${userData.email}! Может быть такого адреса почты не существует.`;

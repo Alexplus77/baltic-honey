@@ -1,4 +1,4 @@
-const UserModel = require("../Models/userModel");
+const UserModel = require("../../Models/userModel");
 exports.editUsersRole = async (req, res) => {
   try {
     const updateRole = new Promise((resolve, reject) => {

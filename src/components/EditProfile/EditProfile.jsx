@@ -1,5 +1,5 @@
-import React, { useState, useId, useRef, useEffect } from "react";
-import { Avatar, Button, Checkbox, Form, Input, Modal } from "antd";
+import React, { useState, useEffect } from "react";
+import { Avatar, Button, Form, Input, Modal } from "antd";
 import { SelectAvatarModal } from "../SelectAvatarModal";
 import s from "./EditProfile.module.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,7 +7,6 @@ import {
   changeUserAvatar,
   changeUserPassword,
 } from "redux/middleware/userFetch";
-import { useForm } from "antd/es/form/Form";
 
 export const EditProfile = ({ editProfile, setEditProfile }) => {
   const { userData } = useSelector((state) => state.contentReducer);

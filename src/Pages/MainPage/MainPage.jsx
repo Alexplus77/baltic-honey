@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import s from "./MainPage.module.css";
+import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate, useParams } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -17,19 +18,15 @@ export const MainPage = () => {
     dispatch(onEditArticle(false));
     dispatch(onEditCategory(false));
     !params.category && navigate("/Main/Main");
-  }, []);
+  }, [dispatch, navigate, params.category]);
 
-  {
-    /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
-    /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
-  }
+  /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
+  /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
 
   return (
-    <>
-      <div
-        className={s.container}
-        dangerouslySetInnerHTML={{ __html: article?.content }}
-      ></div>
-    </>
+    <div
+      className={s.container}
+      dangerouslySetInnerHTML={{ __html: article?.content }}
+    />
   );
 };
