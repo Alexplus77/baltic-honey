@@ -5,21 +5,24 @@ import axios from "axios";
 export const SiteRulesModal = ({ isModalSiteRules, setIsModalSiteRules }) => {
   const [textSiteRules, setTextSiteRules] = useState(null);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_URL}getSiteRules`).then(({ data }) => {
-      setTextSiteRules(data);
-    });
-  }, []);
+    axios
+      .get(`${process.env.REACT_APP_URL}getSiteRules/${isModalSiteRules}`)
+      .then(({ data }) => {
+        setTextSiteRules(data);
+      });
+  }, [isModalSiteRules]);
   const handleCancel = () => {
-    setIsModalSiteRules(false);
+    setIsModalSiteRules(null);
   };
-
+  console.log(isModalSiteRules);
   return (
     <Modal
       visible={isModalSiteRules}
       onOk={handleCancel}
       onCancel={handleCancel}
+      width={900}
     >
-      <div>{textSiteRules}</div>
+      <div dangerouslySetInnerHTML={{ __html: textSiteRules }}></div>
     </Modal>
   );
 };

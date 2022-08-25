@@ -5,11 +5,10 @@ import { SiteRulesModal } from "components/SiteRulesModal";
 import { SelectAvatarModal } from "components/SelectAvatarModal";
 import { useDispatch } from "react-redux";
 import s from "./RegistrationModal.module.css";
-import { Link } from "react-router-dom";
 
 export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
   const [confirm, setConfirm] = useState(false);
-  const [isModalSiteRules, setIsModalSiteRules] = useState(false);
+  const [isModalSiteRules, setIsModalSiteRules] = useState(null);
   const [avatarPath, setAvatar] = useState(
     `${process.env.REACT_APP_URL}avatars/avatarDefault.png`
   );
@@ -144,10 +143,12 @@ export const RegistrationModal = ({ isModalVisible, setIsModalVisible }) => {
           </Form.Item>
           <Form.Item name="agreement" valuePropName="checked">
             <Checkbox checked={true} onClick={handleConfirm}>
-              <a onClick={() => setIsModalSiteRules(true)}>
-                С правилами сайта ознакомлен
+              Да, я принимаю{" "}
+              <a onClick={() => setIsModalSiteRules("siteRulesText")}>
+                политику конфиденциальности{" "}
               </a>{" "}
-              и согласен на обработку личных данных
+              и <a onClick={() => setIsModalSiteRules("agreement")}>согласен</a>{" "}
+              на обработку личных данных.
             </Checkbox>
           </Form.Item>
 

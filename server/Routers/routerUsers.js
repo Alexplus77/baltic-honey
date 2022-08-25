@@ -24,7 +24,7 @@ const {
   getSiteRules,
 } = require("../Controllers/getSiteRulesControllers/getSiteRulesController");
 
-router.get("/getSiteRules", getSiteRules);
+router.get("/getSiteRules/:file", getSiteRules);
 router.post("/changePassword", requiredAuth, changeUserPassword);
 router.post("/changeAvatar", requiredAuth, changeUserAvatar);
 router.post("/userRegistration", userRegistration);
