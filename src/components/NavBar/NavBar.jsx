@@ -25,7 +25,7 @@ export const NavBar = () => {
               : `/${link.title}/${link.title}`
           }
         >
-          {link.title}
+          {link.title === "Main" ? "Главная" : link.title}
         </NavLink>
       ))}
       {isAuth && (

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Editor } from "@tinymce/tinymce-react";
 import { sendMail } from "redux/middleware/getUsersList";
-import { Button, Modal } from "antd";
+import { Button, Modal, message } from "antd";
 import s from "./EditorMail.module.css";
 
 export const EditorMail = ({
@@ -14,6 +14,7 @@ export const EditorMail = ({
   const dispatch = useDispatch();
   const editorRef = useRef(null);
   const log = () => {
+    !selectedRows.length && message.error("Нет выбраных пользователей!!!");
     if (editorRef.current) {
       dispatch(
         sendMail({

@@ -9,9 +9,15 @@ export const changeUserPassword = createAsyncThunk(
       .post(`${process.env.REACT_APP_URL}changePassword`, data, {
         headers: { Authorisation: `Bearer:${localStorage.getItem("token")}` },
       })
-      .then(({ data }) => data)
+      .then(({ data }) => {
+        Modal.success({
+          title: "Вы успешно изменили пароль!!!",
+          content:
+            " Ваш логин и новый пароль отправлены на почту указанную при регистрации",
+        });
+        return data;
+      })
       .catch(({ response }) => {
-        localStorage.removeItem("token");
         return { status: response.status, message: response.data.message };
       })
 );

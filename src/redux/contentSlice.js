@@ -231,7 +231,7 @@ const contentSlice = createSlice({
       state.content = action.payload;
     },
     onEditArticle: (state, action) => {
-      state.isAddArticle = true;
+      state.isAddArticle = action.payload;
       state.editArticle = {
         id: action.payload.id,
         title: action.payload.title,
@@ -239,7 +239,7 @@ const contentSlice = createSlice({
       state.content = action.payload.content;
     },
     onEditCategory: (state, action) => {
-      state.isAddCategory = true;
+      state.isAddCategory = action.payload;
       state.editCategory = action.payload;
     },
   },

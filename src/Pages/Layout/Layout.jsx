@@ -10,17 +10,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { Modal } from "antd";
 import { exitErrorMod } from "redux/contentSlice";
 import { userGetData } from "redux/middleware/userFetch";
-import { useLocation, useNavigate } from "react-router";
 
 export const Layout = () => {
-  const { categories, error, isAuth, userData } = useSelector(
+  const { categories, error, isAuth } = useSelector(
     (state) => state.contentReducer
   );
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     localStorage.getItem("token") && dispatch(userGetData());
-  }, [isAuth]);
+  }, [isAuth, dispatch]);
 
   const menuAside = categories?.filter(
     (category) => category?.blockMenu?.title === "menuAside"

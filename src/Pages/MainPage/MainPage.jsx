@@ -1,30 +1,32 @@
 import React, { useEffect } from "react";
 import s from "./MainPage.module.css";
-import { useNavigate, useParams, useLocation } from "react-router";
-import { fetchGetArticles } from "../../redux/middleware/articlesPost";
-import { useSelector, useDispatch } from "react-redux";
+import { Editor } from "@tinymce/tinymce-react";
+import { useNavigate, useParams } from "react-router";
+
+import { useDispatch, useSelector } from "react-redux";
+import { onEditArticle, onEditCategory } from "../../redux/contentSlice";
 
 export const MainPage = () => {
-  const { categories, articles } = useSelector((state) => state.contentReducer);
+  const { articles } = useSelector((state) => state.contentReducer);
   const params = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const article = articles?.find(
     (el) => el.category?.title === params.category && el.title === params.name
   );
   useEffect(() => {
+    dispatch(onEditArticle(false));
+    dispatch(onEditCategory(false));
     !params.category && navigate("/Main/Main");
-  }, []);
+  }, [dispatch, navigate, params.category]);
 
-  {
-    /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
-    /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
-  }
+  /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
+  /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
+
   return (
     <div
       className={s.container}
       dangerouslySetInnerHTML={{ __html: article?.content }}
-    ></div>
+    />
   );
 };

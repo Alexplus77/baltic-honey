@@ -7,9 +7,7 @@ import { fetchRemoveArticle } from "redux/middleware/articlesPost";
 import s from "./ArticlesList.module.css";
 export const ArticlesList = () => {
   const dispatch = useDispatch();
-  const { categories, articles, content } = useSelector(
-    (state) => state.contentReducer
-  );
+  const { articles } = useSelector((state) => state.contentReducer);
   const handleRemoveArticle = (id) => {
     dispatch(fetchRemoveArticle(id));
   };

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import s from "./UsersList.module.css";
-import { Table, Space, Tooltip, Modal, Input, Form } from "antd";
+import { Table, Space, Tooltip, message } from "antd";
 import { CloseOutlined, EditOutlined, MailOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { removeUsers } from "redux/middleware/getUsersList";
@@ -63,9 +63,18 @@ export const UsersList = () => {
     selectedRowKeys: selectedRows,
     onChange: selectOnChange,
   };
-
-  const handleRemoveUsers = (selectedEmail) => {
-    dispatch(removeUsers({ usersList: selectedEmail }));
+  const onSendMailMod = () => {
+    !selectedRows.length && message.error("Нет выбраных пользователей!!!");
+    selectedRows.length && setMailingMode(true);
+  };
+  const onEditRoleMode = () => {
+    !selectedRows.length && message.error("Нет выбраных пользователей!!!");
+    selectedRows.length && setEditRole(true);
+  };
+  const handleRemoveUsers = () => {
+    !selectedRows.length && message.error("Нет выбраных пользователей!!!");
+    selectedRows && dispatch(removeUsers({ usersList: selectedRows }));
+    setSelectedRows([]);
   };
 
   return (
@@ -87,22 +96,19 @@ export const UsersList = () => {
           title={"Написать письмо выделенным пользователям"}
           color={"blue"}
         >
-          <MailOutlined onClick={() => setMailingMode(true)} />
+          <MailOutlined onClick={onSendMailMod} />
         </Tooltip>
         <Tooltip
           title={"Редактировать роль выделенных пользователей"}
           color={"blue"}
         >
-          <EditOutlined onClick={() => setEditRole(true)} />
+          <EditOutlined onClick={onEditRoleMode} />
         </Tooltip>
         <Tooltip
           title={"Удалить профиль выделенных пользователей"}
           color={"red"}
         >
-          <CloseOutlined
-            onClick={() => handleRemoveUsers(selectedRows)}
-            style={{ color: "red" }}
-          />
+          <CloseOutlined onClick={handleRemoveUsers} style={{ color: "red" }} />
         </Tooltip>
       </Space>
       <Table

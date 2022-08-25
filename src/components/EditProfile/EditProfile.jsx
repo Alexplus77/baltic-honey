@@ -1,5 +1,5 @@
-import React, { useState, useId, useRef, useEffect } from "react";
-import { Avatar, Button, Checkbox, Form, Input, Modal } from "antd";
+import React, { useState, useEffect } from "react";
+import { Avatar, Button, Form, Input, Modal } from "antd";
 import { SelectAvatarModal } from "../SelectAvatarModal";
 import s from "./EditProfile.module.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ export const EditProfile = ({ editProfile, setEditProfile }) => {
   useEffect(() => {
     setAvatar(userData?.avatar);
   }, [userData?.avatar]);
-
+  const [form] = Form.useForm();
   const dispatch = useDispatch();
   const onCancel = () => {
     setEditProfile(false);
@@ -25,6 +25,7 @@ export const EditProfile = ({ editProfile, setEditProfile }) => {
   const onFinish = (values) => {
     dispatch(changeUserPassword({ email: userData.email, ...values }));
     setEditProfile(false);
+    form.resetFields();
   };
   const handleChangeAvatar = () => {
     dispatch(changeUserAvatar({ email: userData.email, avatar: avatarPath }));
@@ -53,6 +54,7 @@ export const EditProfile = ({ editProfile, setEditProfile }) => {
       </div>
 
       <Form
+        form={form}
         name="basic"
         initialValues={{
           remember: true,
@@ -66,10 +68,18 @@ export const EditProfile = ({ editProfile, setEditProfile }) => {
           name="passwordOld"
           rules={[
             {
+              validator(_, value) {
+                return !value.includes(" ")
+                  ? Promise.resolve()
+                  : Promise.reject("Пароль не должен содержать пробелы");
+              },
+            },
+            {
               required: true,
               message: "Напишите старый пароль!",
             },
           ]}
+          hasFeedback
         >
           <Input.Password />
         </Form.Item>
@@ -78,22 +88,51 @@ export const EditProfile = ({ editProfile, setEditProfile }) => {
           name="passwordNew"
           rules={[
             {
+              min: 6,
+              message: "Пароль должен быть не меньше 6 символов",
+            },
+
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (getFieldValue("passwordOld") === value) {
+                  return Promise.reject(
+                    "Прежний и новый пароль не должны совпадать"
+                  );
+                }
+                return !value.includes(" ")
+                  ? Promise.resolve()
+                  : Promise.reject("Пароль не должен содержать пробелы");
+              },
+            }),
+            {
               required: true,
               message: "Напишите новый пароль!",
             },
           ]}
+          hasFeedback
         >
           <Input.Password />
         </Form.Item>
         <Form.Item
           label="Повторите новый пароль"
+          dependencies={["passwordNew"]}
           name="passwordNewRepeat"
           rules={[
+            ({ getFieldsValue }) => ({
+              validator(__, value) {
+                if (!value || getFieldsValue().passwordNew === value) {
+                  return Promise.resolve();
+                } else {
+                  return Promise.reject("Пароли не совпадают");
+                }
+              },
+            }),
             {
               required: true,
               message: "Повторите пароль!",
             },
           ]}
+          hasFeedback
         >
           <Input.Password />
         </Form.Item>
