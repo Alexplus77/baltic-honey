@@ -14,7 +14,6 @@ export const SiteRulesModal = ({ isModalSiteRules, setIsModalSiteRules }) => {
   const handleCancel = () => {
     setIsModalSiteRules(null);
   };
-  console.log(isModalSiteRules);
   return (
     <Modal
       visible={isModalSiteRules}

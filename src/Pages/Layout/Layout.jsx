@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Header } from "components/Header";
 import { AsideBlockMenu } from "components/AsideBlockMenu";
 import { LogInCard } from "components/LogInCard";
+import { Footer } from "components/Footer";
 import { UserCard } from "components/UserCard";
 import { NavBar } from "components/NavBar";
 import { Outlet } from "react-router-dom";
@@ -44,6 +45,7 @@ export const Layout = () => {
         ))}
       </aside>
       <Outlet />
+      <Footer />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 .container{
     display: grid;
     height: fit-content;
-    background-color: white;
+    background-color: rgba(251, 254, 202, 0.91);
     border-radius: 10px;
     padding-bottom: 10px;
 }

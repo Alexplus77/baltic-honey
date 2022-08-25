@@ -1,11 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const routers = require("./Routers/routerArticles");
+const userRouters = require("./Routers/routerUsers");
+const userManagementRouters = require("./Routers/routerUserManagement");
+const categoriesRouter = require("./Routers/routerCategories");
+const uploadMediaRouter = require("./Routers/routerUploadMedia");
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 const cors = require("cors");
-const fs = require("fs");
+
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 const URI2 = "mongodb://127.0.0.1/baltic-honey";
@@ -16,6 +20,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routers);
+app.use(userRouters);
+app.use(userManagementRouters);
+app.use(categoriesRouter);
+app.use(uploadMediaRouter);
 app.use("/uploadMedia", express.static(path.join(__dirname, "uploadMedia")));
 app.use("/avatars", express.static(path.join(__dirname, "avatars")));
 app.use(express.static(path.join(__dirname, "build")));

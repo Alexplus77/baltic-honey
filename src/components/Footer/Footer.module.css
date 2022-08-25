@@ -1,0 +1,8 @@
+.container{
+    display: grid;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: rgba(251, 254, 202, 0.91);
+    grid-area: footer;
+}

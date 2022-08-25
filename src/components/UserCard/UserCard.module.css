@@ -1,6 +1,7 @@
 .container{
     display: grid;
     border-radius: 10px;
+    background-color: rgba(251, 254, 202, 0.91);
 padding-right: 5px;
 }
 .btnContainer{

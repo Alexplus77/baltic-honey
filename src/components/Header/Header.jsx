@@ -5,7 +5,7 @@ import style from "components/Header/header.module.css";
 export const Header = () => {
   return (
     <div className={style.header}>
-      <img src={logo} alt={"logo"} />
+      <img className={style.image} src={logo} alt={"logo"} />
     </div>
   );
 };
