@@ -8,7 +8,7 @@ import { EditUserRole } from "../EditUserRole";
 import { EditorMail } from "components/EditorMail";
 
 export const UsersList = () => {
-  const { usersList } = useSelector((state) => state.contentReducer);
+  const { usersList, userData } = useSelector((state) => state.contentReducer);
   const [selectedRows, setSelectedRows] = useState([]);
   const [editRole, setEditRole] = useState(false);
   const [mailingMode, setMailingMode] = useState(false);
@@ -68,6 +68,11 @@ export const UsersList = () => {
     selectedRows.length && setMailingMode(true);
   };
   const onEditRoleMode = () => {
+    if (userData.role !== "superAdmin") {
+      return message.error(
+        "У вас нет прав для редактирования роли пользователей, войдите с правами суперадминистратора!!!"
+      );
+    }
     !selectedRows.length && message.error("Нет выбраных пользователей!!!");
     selectedRows.length && setEditRole(true);
   };
@@ -114,7 +119,7 @@ export const UsersList = () => {
       <Table
         rowKey={(record) => record.email}
         rowSelection={rowSelection}
-        dataSource={usersList}
+        dataSource={usersList.filter((el) => el.role !== "superAdmin")}
         columns={columns}
       />
     </section>

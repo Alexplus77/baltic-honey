@@ -1,9 +1,5 @@
 import { Avatar, Card, Button } from "antd";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { SettingOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { EditProfile } from "components/EditProfile";
@@ -12,7 +8,7 @@ import { logOut } from "redux/contentSlice";
 
 const { Meta } = Card;
 export const UserCard = () => {
-  const { isAuth, userData } = useSelector((state) => state.contentReducer);
+  const { userData } = useSelector((state) => state.contentReducer);
   const [editProfile, setEditProfile] = useState(false);
   const dispatch = useDispatch();
   const handleLogOut = () => {
