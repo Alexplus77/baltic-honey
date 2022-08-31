@@ -1,4 +1,4 @@
-const UserModel = require("../Models/userModel");
+const UserModel = require("../../Models/userModel");
 exports.getUserList = async (req, res) => {
   try {
     const usersList = await UserModel.find({}).populate("email", [

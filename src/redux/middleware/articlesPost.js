@@ -101,7 +101,7 @@ export const fetchGetCategories = createAsyncThunk("contentSlice/getData", () =>
 );
 export const fetchGetArticles = createAsyncThunk(
   "contentSlice/getArticles",
-  (params) =>
+  () =>
     axios
       .get(`${process.env.REACT_APP_URL}getArticles`)
       .then(({ data }) => data)

@@ -212,6 +212,7 @@ const contentSlice = createSlice({
   reducers: {
     logOut: (state) => {
       state.isAuth = false;
+      state.userData = null;
     },
     exitErrorMod: (state) => {
       state.error = null;

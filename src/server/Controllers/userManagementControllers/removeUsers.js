@@ -1,4 +1,4 @@
-const UserModel = require("../Models/userModel");
+const UserModel = require("../../Models/userModel");
 exports.removeUsers = async (req, res) => {
   try {
     if (!req.body?.usersList) throw "Нет данных для удаления пользователей!!!";

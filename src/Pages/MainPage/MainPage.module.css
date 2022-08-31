@@ -1,10 +1,11 @@
 .container{
     display: grid;
 grid-area: outlet;
-   background-color: white;
+   background-color: rgba(251, 254, 202, 0.91);
     border-radius: 10px;
     width: 100%;
     min-height: 100vh;
     padding: 10px;
     font-size: 1.5em;
 }
+

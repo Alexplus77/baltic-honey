@@ -1,5 +1,5 @@
-const BlockMenu = require("../Models/blockMenuModel");
-const BlockMenuModel = require("../Models/blockMenuModel");
+const BlockMenu = require("../../Models/blockMenuModel");
+const BlockMenuModel = require("../../Models/blockMenuModel");
 
 //Контроллер отправляет на фронтенд из БД массив списка меню, если таковых нет, то создает их.
 exports.getBlockMenu = (req, res) => {

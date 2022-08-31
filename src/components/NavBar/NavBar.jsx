@@ -1,11 +1,10 @@
 import React from "react";
 import s from "./NavBar.module.css";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const NavBar = () => {
-  const dispatch = useDispatch();
-  const { isAuth, userData } = useSelector((state) => state.contentReducer);
+  const { userData } = useSelector((state) => state.contentReducer);
   const activeClass = ({ isActive }) => (isActive ? s.active : s.navbar);
   const { categories } = useSelector((state) => state.contentReducer);
 
@@ -28,7 +27,7 @@ export const NavBar = () => {
           {link.title === "Main" ? "Главная" : link.title}
         </NavLink>
       ))}
-      {isAuth && (
+      {(userData?.role === "superAdmin" || userData?.role === "admin") && (
         <NavLink className={activeClass} to={"/administrator"}>
           {" "}
           AdminPanel
