@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import s from "./MainPage.module.css";
 import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate, useParams } from "react-router";
