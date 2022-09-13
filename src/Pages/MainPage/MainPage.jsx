@@ -24,7 +24,7 @@ export const MainPage = () => {
   /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
 
   return (
-    <div
+    <article
       className={s.container}
       dangerouslySetInnerHTML={{ __html: article?.content }}
     />

@@ -62,7 +62,7 @@ export const FormAddArticle = () => {
         </Select>
       </Form.Item>
       <Form.Item
-        hidden={editArticle}
+        hidden={editArticle?.title}
         name={"category"}
         className={s.select}
         label={"Выберите раздел"}

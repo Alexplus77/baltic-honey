@@ -1,5 +1,6 @@
 .container{
     display: grid;
+    grid-auto-flow: column;
     padding: 10px;
     width: 100%;
     border-radius: 5px;

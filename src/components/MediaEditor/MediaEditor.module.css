@@ -4,7 +4,7 @@
 }
 .mediaItems{
     display: grid;
-    max-height: 500px;
+    min-height: 250px;
 gap: 10px;
     grid-template-columns: repeat(2, fit-content(200px));
     overflow: auto;
@@ -20,20 +20,11 @@ gap: 10px;
     gap: 10px;
 grid-auto-flow: column;
 }
-.describe{
-    display: grid;
-}
+
 .containerActions{
     display: grid;
 }
-.iconDelete{
-    color: red;
-    font-size: 1.5em;
-    cursor: pointer;
-    height: fit-content;
-}
 
-.iconCopy{
-    font-size: 1.3em;
-    cursor: pointer;
+.pagination{
+    justify-self: center;
 }

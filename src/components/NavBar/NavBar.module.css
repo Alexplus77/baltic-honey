@@ -14,3 +14,9 @@ color: black;
 .active{
     color: red;
 }
+.active:hover{
+    color: #ff9d00;
+}
+.navbar:hover{
+    color: #ff9d00;
+}

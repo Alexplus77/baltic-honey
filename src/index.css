@@ -6,7 +6,7 @@ body {
   background-image: url("./Images/background-beekeeping.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100%;
+  background-size: cover;
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

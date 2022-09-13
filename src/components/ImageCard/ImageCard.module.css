@@ -1,1 +1,26 @@
+.describe{
+    display: grid;
+    width: fit-content;
+    height: fit-content;
+}
+.cardImage{
+    display: grid;
+    grid-auto-flow: column;
+    gap: 10px;
+}
+.iconDelete{
+    color: red;
+    font-size: 1.5em;
+    cursor: pointer;
+    height: fit-content;
+}
 
+.iconCopy{
+    font-size: 1.3em;
+    cursor: pointer;
+}
+.containerActions{
+    display: grid;
+    height: fit-content;
+    gap: 5px;
+}

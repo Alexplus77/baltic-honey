@@ -1,4 +1,4 @@
-import s from "../MediaEditor/MediaEditor.module.css";
+import s from "./ImageCard.module.css";
 import { Image, message, Tooltip } from "antd";
 import { CloseOutlined, CopyOutlined } from "@ant-design/icons";
 import React from "react";
