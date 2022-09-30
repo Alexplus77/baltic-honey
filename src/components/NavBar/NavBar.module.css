@@ -6,6 +6,7 @@
     grid-area: navbar;
     display: grid;
     grid-auto-flow: column;
+
 }
 .navbar{
 color: black;

@@ -3,6 +3,7 @@ import s from "./UserManagementPage.module.css";
 import { UsersList } from "components/UsersList";
 import { getUsersList } from "redux/middleware/getUsersList";
 import { useDispatch } from "react-redux";
+import { FormOrder } from "components/FormOrder";
 
 export const UserManagementPage = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ export const UserManagementPage = () => {
   }, []);
   return (
     <main>
+      {/*<FormOrder />*/}
       <UsersList />
     </main>
   );

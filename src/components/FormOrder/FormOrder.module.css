@@ -1,0 +1,6 @@
+.formOrder{
+    display: grid;
+    width: fit-content;
+    padding: 10px;
+    justify-self: center;
+}
