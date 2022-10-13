@@ -2,10 +2,14 @@ import s from "./ImageCard.module.css";
 import { Image, message, Tooltip } from "antd";
 import { CloseOutlined, CopyOutlined } from "@ant-design/icons";
 import React from "react";
-import { removeUploadMedia } from "redux/middleware/articlesPost";
+import {
+  removeUploadMedia,
+  removeUploadSliderMedia,
+} from "redux/middleware/articlesPost";
 import { useDispatch } from "react-redux";
 
 export const ImageCard = ({ el }) => {
+  const folderSliderImg = el.path.split("/").includes("SliderImg");
   const dispatch = useDispatch();
   const handleCopy = (path) => {
     navigator.clipboard
@@ -13,7 +17,9 @@ export const ImageCard = ({ el }) => {
       .then(() => message.success("Success copied!!!"));
   };
   const removeMedia = (name) => {
-    dispatch(removeUploadMedia(name));
+    folderSliderImg
+      ? dispatch(removeUploadSliderMedia(name))
+      : dispatch(removeUploadMedia(name));
   };
   return (
     <div key={el.name} className={s.cardImage}>

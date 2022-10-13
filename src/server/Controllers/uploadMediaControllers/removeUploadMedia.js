@@ -6,24 +6,17 @@ const ImageModel = require("../../Models/imageModel");
 exports.removeUploadMedia = (req, res) => {
   const name = req.params.name;
   try {
-    ImageModel.findOneAndRemove({ name: name }, {}, (err, doc) => {
+    fs.unlink(`uploadMedia/${name}`, (err) => {
       if (err) {
-        return res.status(401).send({ message: "Файл не найден" });
+        return res.status(402).send({ message: "Файл на сервере не найден" });
       }
-      fs.unlink(`uploadMedia/${name}`, (err) => {
-        if (err) {
-          return res.status(402).send({ message: "Файл на сервере не найден" });
-        } else {
-          ImageModel.find({}, (error, result) => {
-            if (error) {
-              return res
-                .status(403)
-                .send({ message: "В базе данных такого изображения нет" });
-            }
-            res.send(result);
-          });
-        }
+      const result = fs.readdirSync("./uploadMedia").map((image) => {
+        return {
+          name: image,
+          path: `${process.env.URL_IMAGE}uploadMedia/${image}`,
+        };
       });
+      res.send(result);
     });
   } catch (e) {
     res.status(400).send({ message: e });

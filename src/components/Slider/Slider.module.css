@@ -1,0 +1,33 @@
+.container{
+    display: grid;
+width: 100%;
+    background-color: rgba(251, 254, 202, 0.91);
+    border-radius: 10px 10px 0 0;
+
+}
+.img{
+    padding: 10px;
+    height: 40vh;
+    animation-name: Appearance;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.1,-.6,.2,0);
+}
+@-webkit-keyframes Appearance {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@-o-keyframes Appearance {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@-moz-keyframes Appearance {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes Appearance {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}

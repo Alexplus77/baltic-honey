@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Pagination, Upload } from "antd";
 
 import { UploadOutlined } from "@ant-design/icons";
-import { getUploadMedia, uploadMedia } from "redux/middleware/articlesPost";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./MediaEditor.module.css";
 import { ImageCard } from "../ImageCard";
 
-export const MediaEditor = () => {
+export const MediaEditor = ({ getUploadedImages, uploadImage }) => {
   const sizePage = 4; // Количество карточек изображений на одной странице
   const [file, setFile] = useState(null);
   const { uploadMediaItems } = useSelector((state) => state.contentReducer);
@@ -18,19 +17,18 @@ export const MediaEditor = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUploadMedia());
-
+    dispatch(getUploadedImages());
     setPaginationImage((prev) => {
       prev.paginationImages = uploadMediaItems.slice(0, sizePage);
       prev.currentIndex = 0;
       return { ...prev };
     });
-  }, [uploadMediaItems?.length]);
+  }, [uploadMediaItems?.length, getUploadedImages]);
 
   const handleUploadFile = () => {
     const data = new FormData();
     data.append("file", file);
-    dispatch(uploadMedia(data));
+    dispatch(uploadImage(data));
   };
 
   useEffect(() => {

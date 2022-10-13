@@ -13,6 +13,9 @@ import {
   uploadMedia,
   getUploadMedia,
   removeUploadMedia,
+  getUploadedSliderImages,
+  uploadSliderMedia,
+  removeUploadSliderMedia,
 } from "./middleware/articlesPost";
 import {
   changeUserAvatar,
@@ -122,7 +125,23 @@ const contentSlice = createSlice({
         state.error = action.payload;
       }
     },
+    [uploadSliderMedia.fulfilled]: (state, action) => {
+      if (action.payload.status) {
+        state.error = action.payload;
+      } else {
+        state.uploadMediaItems = action.payload;
+        state.error = null;
+      }
+    },
     [uploadMedia.fulfilled]: (state, action) => {
+      if (action.payload.status) {
+        state.error = action.payload;
+      } else {
+        state.uploadMediaItems = action.payload;
+        state.error = null;
+      }
+    },
+    [removeUploadSliderMedia.fulfilled]: (state, action) => {
       if (action.payload.status) {
         state.error = action.payload;
       } else {
@@ -136,6 +155,13 @@ const contentSlice = createSlice({
       } else {
         state.uploadMediaItems = action.payload;
         state.error = null;
+      }
+    },
+    [getUploadedSliderImages.fulfilled]: (state, action) => {
+      if (action.payload.status) {
+        state.error = action.payload;
+      } else {
+        state.uploadMediaItems = action.payload;
       }
     },
     [getUploadMedia.fulfilled]: (state, action) => {

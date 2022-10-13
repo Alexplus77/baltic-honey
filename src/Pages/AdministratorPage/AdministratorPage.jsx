@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import s from "./AdministratorPage.module.css";
@@ -9,8 +9,15 @@ import { ArticlesList } from "components/ArticlesList";
 import { CategoriesList } from "components/CategoriesList";
 import { MediaEditor } from "components/MediaEditor";
 import { handleAddCategory, handleAddArticle } from "redux/contentSlice";
+import {
+  getUploadMedia,
+  uploadMedia,
+  getUploadedSliderImages,
+  uploadSliderMedia,
+} from "redux/middleware/articlesPost";
 
 export const AdministratorPage = () => {
+  const [modMedia, setModMedia] = useState("mediaContent");
   const { isAddCategory, isAddArticle } = useSelector(
     (state) => state.contentReducer
   );
@@ -32,8 +39,24 @@ export const AdministratorPage = () => {
           <Button onClick={() => dispatch(handleAddArticle())} type={"primary"}>
             Добавить статью
           </Button>
+          <Button onClick={() => setModMedia("mediaContent")} type={"primary"}>
+            Управление изображениями контента
+          </Button>
+          <Button onClick={() => setModMedia("mediaSlider")} type={"primary"}>
+            Управление изображениями слайдера
+          </Button>
         </div>
-        <MediaEditor />
+        <h3>Управление медиа: {modMedia}</h3>
+        <MediaEditor
+          getUploadedImages={
+            modMedia === "mediaSlider"
+              ? getUploadedSliderImages
+              : getUploadMedia
+          }
+          uploadImage={
+            modMedia === "mediaSlider" ? uploadSliderMedia : uploadMedia
+          }
+        />
         {!isAddArticle && !isAddCategory ? <ArticlesList /> : null}
         {!isAddArticle && !isAddCategory ? <CategoriesList /> : null}
         {isAddCategory && <FormAddCategory />}

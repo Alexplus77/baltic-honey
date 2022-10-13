@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import s from "./MainPage.module.css";
 import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate, useParams } from "react-router";
-
+import { Slider } from "components/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { onEditArticle, onEditCategory } from "../../redux/contentSlice";
 
@@ -24,9 +24,12 @@ export const MainPage = () => {
   /*<div dangerouslySetInnerHTML={{ __html: content }} />*/
 
   return (
-    <article
-      className={s.container}
-      dangerouslySetInnerHTML={{ __html: article?.content }}
-    />
+    <div className={s.containerPage}>
+      {params.category === "Main" && <Slider />}
+      <article
+        className={s.container}
+        dangerouslySetInnerHTML={{ __html: article?.content }}
+      />
+    </div>
   );
 };
