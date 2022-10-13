@@ -1,6 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const getUploadedSliderImages = createAsyncThunk(
+  "contentSlice/getUploadedSliderImages",
+  () =>
+    axios
+      .get(`${process.env.REACT_APP_URL}getUploadedSliderMedia`)
+      .then(({ data }) => data)
+      .catch(({ response }) => {
+        return { status: response.status, message: response.data.message };
+      })
+);
+export const uploadSliderMedia = createAsyncThunk(
+  "contentSlice/uploadSliderMedia",
+  (data) =>
+    axios
+      .post(`${process.env.REACT_APP_URL}uploadSliderMedia`, data, {
+        headers: { Authorisation: `Bearer:${localStorage.getItem("token")}` },
+      })
+      .then(({ data }) => data)
+      .catch(({ response }) => {
+        return { status: response.status, message: response.data.message };
+      })
+);
 export const uploadMedia = createAsyncThunk(
   "contentSlice/uploadMedia",
   (data) =>
@@ -18,6 +40,18 @@ export const getUploadMedia = createAsyncThunk(
   () =>
     axios
       .get(`${process.env.REACT_APP_URL}getUploadMedia`)
+      .then(({ data }) => data)
+      .catch(({ response }) => {
+        return { status: response.status, message: response.data.message };
+      })
+);
+export const removeUploadSliderMedia = createAsyncThunk(
+  "contentSlice/removeUploadSliderMedia",
+  (name) =>
+    axios
+      .get(`${process.env.REACT_APP_URL}removeUploadSliderMedia${name}`, {
+        headers: { Authorisation: `Bearer:${localStorage.getItem("token")}` },
+      })
       .then(({ data }) => data)
       .catch(({ response }) => {
         return { status: response.status, message: response.data.message };

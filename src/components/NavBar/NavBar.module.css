@@ -6,6 +6,7 @@
     grid-area: navbar;
     display: grid;
     grid-auto-flow: column;
+
 }
 .navbar{
 color: black;
@@ -13,4 +14,10 @@ color: black;
 }
 .active{
     color: red;
+}
+.active:hover{
+    color: #ff9d00;
+}
+.navbar:hover{
+    color: #ff9d00;
 }

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 exports.userAuthentication = async (req, res) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email });
+
     if (!user)
       throw "Пользователь с такой электронной почтой не зарегестрирован.";
     const isUser = bcrypt.compareSync(req.body.password, user.password);

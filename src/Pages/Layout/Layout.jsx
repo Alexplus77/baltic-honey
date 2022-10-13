@@ -19,7 +19,7 @@ export const Layout = () => {
     (state) => state.contentReducer
   );
   const distanceFromTop = 400;
-  const increaseDistance = 500;
+  const decreaseDistance = 200;
   const dispatch = useDispatch();
   const [visibleLink, setVisibleLink] = useState(false);
   const [scrolledTop, setScrolledTop] = useState(0);
@@ -41,9 +41,12 @@ export const Layout = () => {
       setVisibleLink(false);
     }
   };
-  window.addEventListener("scroll", toggleVisibleLInk);
-  const scrollToTop = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisibleLInk);
+    return () => window.removeEventListener("scroll", toggleVisibleLInk);
+  }, []);
+
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       left: 0,
@@ -74,7 +77,10 @@ export const Layout = () => {
       {visibleLink && (
         <Tooltip color={"#f5d11c"} title={"Вверх"}>
           <UpOutlined
-            style={{ marginTop: scrolledTop + increaseDistance }}
+            style={{
+              marginTop:
+                window.screen.availHeight + scrolledTop - decreaseDistance,
+            }}
             className={s.link}
             onClick={scrollToTop}
           />

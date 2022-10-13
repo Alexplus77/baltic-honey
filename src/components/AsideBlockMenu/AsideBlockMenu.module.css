@@ -8,3 +8,19 @@
 ul{
     list-style: none;
 }
+.collapse{
+    display: grid;
+    grid-auto-flow: row;
+}
+.articlesList{
+    display: grid;
+    height: fit-content;
+    width: fit-content;
+}
+.Link{
+    color: black;
+}
+.Link:hover{
+    color: #ff9d00;
+
+}

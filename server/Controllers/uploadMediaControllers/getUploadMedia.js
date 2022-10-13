@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-//Контроллер отправляет на фронтенд с БД список всех загруженных изображений в папке uploadMedia.
+//Контроллер отправляет на фронтенд с сервера список всех загруженных изображений в папке uploadMedia.
 exports.getUploadMedia = (req, res) => {
   try {
     const images = fs.readdirSync("./uploadMedia").map((image) => {

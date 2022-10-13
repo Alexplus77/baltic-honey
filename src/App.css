@@ -1,10 +1,40 @@
 
-
 .App {
 
-  display: grid;
-  width: 1300px;
-margin-top: 10px;
+    display: grid;
+    width: 1300px;
+    margin-top: 10px;
+
 }
+
+@media screen and (max-width: 1600px) {
+    .App {
+        width: 1300px;
+    }
+}
+@media screen and (max-width: 1300px) {
+    .App {
+        width: 1000px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .App {
+        width: 800px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .App {
+        width: 600px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .App {
+        width: 400px;
+    }
+}
+
 
 
