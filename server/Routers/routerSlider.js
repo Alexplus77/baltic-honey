@@ -25,11 +25,28 @@ const storage = multer.diskStorage({
     }
     cb(null, "./SliderImg");
   },
+
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      path.extname(file.originalname) !== ".jpg" &&
+      path.extname(file.originalname) !== ".png"
+    ) {
+      return cb("Это не файл изображения, нужен файл в формате (jpg, png)");
+    } else {
+      if (fs.existsSync(`./SliderImg/${file.originalname}`)) {
+        return cb(`Файл ${file.originalname} уже существует`);
+      } else {
+        return cb(null, true);
+      }
+    }
+  },
+}).single("file");
 
 router.get("/imageSlider:index", getImagesSlider);
 router.get("/getUploadedSliderMedia", getUploadedSliderMedia);
@@ -41,7 +58,15 @@ router.get(
 router.post(
   "/uploadSliderMedia",
   requiredAuth,
-  upload.single("file"),
+  (req, res, next) => {
+    upload(req, res, (err) => {
+      if (err) {
+        return res.status(400).send({ message: err });
+      } else {
+        next();
+      }
+    });
+  },
   uploadMediaSliderController
 );
 module.exports = router;

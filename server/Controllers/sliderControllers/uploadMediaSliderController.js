@@ -3,6 +3,7 @@ const fs = require("fs");
 
 exports.uploadMediaSliderController = async (req, res) => {
   let file = req.file;
+
   try {
     if (!file) {
       return res.status(400).send({ message: "Файл отсутствует" });
