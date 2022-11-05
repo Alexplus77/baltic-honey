@@ -3,17 +3,23 @@ import s from "./UserManagementPage.module.css";
 import { UsersList } from "components/UsersList";
 import { getUsersList } from "redux/middleware/getUsersList";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Button } from "antd";
 import { FormOrder } from "components/FormOrder";
 
 export const UserManagementPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsersList());
   }, []);
   return (
-    <main>
+    <section className={s.container}>
       {/*<FormOrder />*/}
       <UsersList />
-    </main>
+      <Button className={s.btn} type={"primary"} onClick={() => navigate(-1)}>
+        Назад
+      </Button>
+    </section>
   );
 };

@@ -8,7 +8,11 @@ import {
   fetchPostData,
   fetchUpdateArticle,
 } from "redux/middleware/articlesPost";
-import { addContent, onErrorMod } from "redux/contentSlice";
+import {
+  addContent,
+  onErrorMod,
+  resetModeAddContent,
+} from "redux/contentSlice";
 
 export const FormAddArticle = () => {
   const dispatch = useDispatch();
@@ -94,10 +98,19 @@ export const FormAddArticle = () => {
         <Input />
       </Form.Item>
       <EditorText />
-      <Form.Item className={s.button}>
-        <Button style={{ width: "100%" }} type="primary" htmlType="submit">
-          Сохранить статью
-        </Button>
+      <Form.Item className={s.btns}>
+        <div className={s.buttons}>
+          <Button
+            onClick={() => dispatch(resetModeAddContent())}
+            danger={true}
+            type="primary"
+          >
+            Отмена
+          </Button>
+          <Button type="primary" htmlType="submit">
+            Сохранить статью
+          </Button>
+        </div>
       </Form.Item>
     </Form>
   );

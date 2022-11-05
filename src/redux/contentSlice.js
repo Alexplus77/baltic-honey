@@ -52,6 +52,7 @@ const contentSlice = createSlice({
     userData: null,
     avatarsList: [],
     usersList: [],
+    imagesSlider: [],
   },
   extraReducers: {
     [sendMail.fulfilled]: (state, action) => {
@@ -257,6 +258,11 @@ const contentSlice = createSlice({
     addContent: (state, action) => {
       state.content = action.payload;
     },
+    resetModeAddContent: (state) => {
+      state.isAddArticle = false;
+      state.isAddCategory = false;
+      state.content = "";
+    },
     onEditArticle: (state, action) => {
       state.isAddArticle = action.payload;
       state.editArticle = {
@@ -280,5 +286,6 @@ export const {
   exitErrorMod,
   onErrorMod,
   logOut,
+  resetModeAddContent,
 } = contentSlice.actions;
 export default contentSlice.reducer;

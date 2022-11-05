@@ -4,7 +4,7 @@ import { Button, Pagination, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./MediaEditor.module.css";
-import { ImageCard } from "../ImageCard";
+import { ImageCard } from "components/ImageCard";
 
 export const MediaEditor = ({ getUploadedImages, uploadImage }) => {
   const sizePage = 4; // Количество карточек изображений на одной странице

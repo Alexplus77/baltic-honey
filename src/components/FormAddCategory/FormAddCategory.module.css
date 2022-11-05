@@ -2,14 +2,19 @@
     padding: 10px;
     display: grid;
     gap: 10px;
-
+width: 100%;
 }
 .select, .input{
     width: 600px;
     padding-left: 20px;
 }
-.button{
-    justify-self: center;
-    width: 50%;
-
+.buttons{
+    display: grid;
+    grid-auto-flow: column;
+    width: 40%;
+    gap: 10px;
 }
+.btns{
+    justify-self: center;
+}
+
