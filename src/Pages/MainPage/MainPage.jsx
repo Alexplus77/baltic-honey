@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import s from "./MainPage.module.css";
-import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate, useParams } from "react-router";
 import { Slider } from "components/Slider";
 import { useDispatch, useSelector } from "react-redux";
-import { onEditArticle, onEditCategory } from "../../redux/contentSlice";
+import { onEditArticle, onEditCategory } from "redux/contentSlice";
 
 export const MainPage = () => {
   const { articles } = useSelector((state) => state.contentReducer);

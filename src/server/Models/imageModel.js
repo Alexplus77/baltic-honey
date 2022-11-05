@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const imageSchema = mongoose.Schema({
+const imageSliderSchema = mongoose.Schema({
   name: { type: String, unique: true },
   path: String,
-  size: Number,
-  create: { type: Date, default: Date.now() },
+  article: String,
 });
 
-module.exports = mongoose.model("ImageModel", imageSchema);
+module.exports = mongoose.model("ImageSliderModel", imageSliderSchema);

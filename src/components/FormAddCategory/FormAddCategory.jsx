@@ -6,7 +6,7 @@ import {
   fetchUpdateCategory,
 } from "redux/middleware/articlesPost";
 import { useDispatch, useSelector } from "react-redux";
-import { addContent } from "redux/contentSlice";
+import { addContent, resetModeAddContent } from "redux/contentSlice";
 
 export const FormAddCategory = () => {
   const dispatch = useDispatch();
@@ -60,12 +60,21 @@ export const FormAddCategory = () => {
       >
         <Input />
       </Form.Item>
-      <Form.Item className={s.button}>
-        <Button style={{ width: "100%" }} type={"primary"} htmlType={"submit"}>
-          {editCategory?.title
-            ? "Сохранить изменение категории"
-            : "Сохранить новую категорию"}
-        </Button>
+      <Form.Item className={s.btns}>
+        <div className={s.buttons}>
+          <Button
+            onClick={() => dispatch(resetModeAddContent())}
+            danger={true}
+            type="primary"
+          >
+            Отмена
+          </Button>
+          <Button type={"primary"} htmlType={"submit"}>
+            {editCategory?.title
+              ? "Сохранить изменение категории"
+              : "Сохранить новую категорию"}
+          </Button>
+        </div>
       </Form.Item>
     </Form>
   );

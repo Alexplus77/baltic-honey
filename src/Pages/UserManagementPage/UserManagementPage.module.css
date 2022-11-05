@@ -1,5 +1,11 @@
-main{
+.container{
+    display: grid;
     min-height: 100vh;
     background-color: white;
     border-radius: 10px;
+}
+.btn{
+    width: 10%;
+    justify-self: right;
+    margin-right: 5%;
 }

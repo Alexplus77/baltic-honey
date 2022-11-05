@@ -6,6 +6,8 @@ width: 100%;
 
 }
 .img{
+    justify-self: center;
+    max-width: 100%;
     padding: 10px;
     height: 40vh;
     animation-name: Appearance;
